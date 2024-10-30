@@ -322,8 +322,7 @@ namespace _Elsword__Title_Timer
 
         private void RenderMainMenu()
         {
-
-
+            
             bool isCollapsed = !ImGui.Begin(
                 "Title Timer main window",
                 ref state.IsRunning,
@@ -355,7 +354,7 @@ namespace _Elsword__Title_Timer
             ImGui.SameLine();
             if (ImGui.Button("Reset [minimize] key)"))
             {
-                IsCapturing_Minimize = false; // 칭호 변경키 캡처 시작
+                IsCapturing_Minimize = false;
                 custom_Minimize = -1;
                 IsCapturing_Minimize_State = "Current keycode: none";
             }
@@ -366,6 +365,7 @@ namespace _Elsword__Title_Timer
             ImGui.Text("---------------------------------------------------------------");
 
 
+
             if (ImGui.Button("Change [Title switching] key"))
             {
                 IsCapturing_Switching = true; // 칭호 변경키 캡처 시작
@@ -374,7 +374,7 @@ namespace _Elsword__Title_Timer
             ImGui.SameLine();
             if (ImGui.Button("Reset [Title switching] key)"))
             {
-                IsCapturing_Switching = false; // 칭호 변경키 캡처 시작
+                IsCapturing_Switching = false;
                 custom_ChangeTitle = -1;
                 IsCapturing_Switching_State = "Current keycode: None";
 
@@ -393,7 +393,7 @@ namespace _Elsword__Title_Timer
             ImGui.SameLine();
             if (ImGui.Button("Reset [Night Parade of the White-Ghost] arrow key)"))
             {
-                IsCapturing_NPWG = false; // 칭호 변경키 캡처 시작
+                IsCapturing_NPWG = false;
                 custom_NPWG = -1;
                 IsCapturing_NPWG_State = "Current keycode: None";
             }
@@ -411,7 +411,7 @@ namespace _Elsword__Title_Timer
             ImGui.SameLine();
             if (ImGui.Button("Reset [Night Parade of the White-Ghost] Skill Key"))
             {
-                IsCapturing_NPWG_Skill = false; // 칭호 변경키 캡처 시작
+                IsCapturing_NPWG_Skill = false;
                 custom_NPWG_Skill = -1;
                 IsCapturing_NPWG_Skill_State = "Current keycode: None";
             }
@@ -419,6 +419,7 @@ namespace _Elsword__Title_Timer
             // 캡처한 키 값 출력
             ImGui.Text(IsCapturing_NPWG_Skill_State);
             ImGui.Text("---------------------------------------------------------------");
+
 
 
             if (ImGui.Button("Change [FreedShadow] arrow key"))
@@ -429,7 +430,7 @@ namespace _Elsword__Title_Timer
             ImGui.SameLine();
             if (ImGui.Button("Reset [FreedShadow] arrow key"))
             {
-                IsCapturing_FreedShadow = false; // 칭호 변경키 캡처 시작
+                IsCapturing_FreedShadow = false;
                 custom_FreedShadow = -1;
                 IsCapturing_FreedShadow_State = "Current keycode: None";
 
@@ -440,6 +441,7 @@ namespace _Elsword__Title_Timer
             ImGui.Text("---------------------------------------------------------------");
 
 
+
             if (ImGui.Button("Change [The_Setting_Sun] arrow key"))
             {
                 IsCapturing_The_Setting_Sun = true; // 칭호 변경키 캡처 시작
@@ -448,7 +450,7 @@ namespace _Elsword__Title_Timer
             ImGui.SameLine();
             if (ImGui.Button("Reset [The_Setting_Sun] arrow key"))
             {
-                IsCapturing_The_Setting_Sun = false; // 칭호 변경키 캡처 시작
+                IsCapturing_The_Setting_Sun = false;
                 custom_The_Setting_Sun = -1;
                 IsCapturing_The_Setting_Sun_State = "Current keycode: None";
 
@@ -459,6 +461,7 @@ namespace _Elsword__Title_Timer
             ImGui.Text("---------------------------------------------------------------");
 
 
+
             if (ImGui.Button("Change [Natural Flow] arrow key"))
             {
                 IsCapturing_Natural_Flow = true; // 칭호 변경키 캡처 시작
@@ -467,7 +470,7 @@ namespace _Elsword__Title_Timer
             ImGui.SameLine();
             if (ImGui.Button("Reset [Natural Flow] arrow key"))
             {
-                IsCapturing_Natural_Flow = false; // 칭호 변경키 캡처 시작
+                IsCapturing_Natural_Flow = false;
                 custom_Natural_Flow = -1;
                 IsCapturing_Natural_Flow_State = "Current keycode: None";
             }
@@ -475,6 +478,7 @@ namespace _Elsword__Title_Timer
             // 캡처한 키 값 출력
             ImGui.Text(IsCapturing_Natural_Flow_State);
             ImGui.Text("---------------------------------------------------------------");
+
 
 
             if (ImGui.Button("Change [Awakening] key"))
@@ -485,7 +489,7 @@ namespace _Elsword__Title_Timer
             ImGui.SameLine();
             if (ImGui.Button("Reset [Awakening] key"))
             {
-                IsCapturing_Awakening = false; // 칭호 변경키 캡처 시작
+                IsCapturing_Awakening = false;
                 custom_Awakening = -1;
                 IsCapturing_Awakening_State = "Current keycode: None";
             }
@@ -493,6 +497,7 @@ namespace _Elsword__Title_Timer
             // 캡처한 키 값 출력
             ImGui.Text(IsCapturing_Awakening_State);
             ImGui.Text("---------------------------------------------------------------");
+
 
 
             if (ImGui.Button("Change [Onion] key"))
@@ -503,7 +508,7 @@ namespace _Elsword__Title_Timer
             ImGui.SameLine();
             if (ImGui.Button("Reset [Onion] key"))
             {
-                IsCapturing_Onion = false; // 칭호 변경키 캡처 시작
+                IsCapturing_Onion = false;
                 custom_Onion = -1;
                 IsCapturing_Onion_State = "Current keycode: None";
             }
@@ -511,6 +516,7 @@ namespace _Elsword__Title_Timer
             // 캡처한 키 값 출력
             ImGui.Text(IsCapturing_Onion_State);
             ImGui.Text("---------------------------------------------------------------");
+
 
 
             if (ImGui.Button("Change [Superhuman_Apple] key"))
@@ -521,7 +527,7 @@ namespace _Elsword__Title_Timer
             ImGui.SameLine();
             if (ImGui.Button("Reset [Superhuman_Apple] key"))
             {
-                IsCapturing_Superhuman_Apple = false; // 칭호 변경키 캡처 시작
+                IsCapturing_Superhuman_Apple = false;
                 custom_Superhuman_Apple = -1;
                 IsCapturing_Superhuman_Apple_State = "Current keycode: None";
             }
@@ -529,6 +535,7 @@ namespace _Elsword__Title_Timer
             // 캡처한 키 값 출력
             ImGui.Text(IsCapturing_Superhuman_Apple_State);
             ImGui.Text("---------------------------------------------------------------");
+
 
 
             if (ImGui.Button("Change [Timer_Reset] key"))
@@ -539,7 +546,7 @@ namespace _Elsword__Title_Timer
             ImGui.SameLine();
             if (ImGui.Button("Reset [Timer_Reset] key"))
             {
-                IsCapturing_Reset = true; // 칭호 변경키 캡처 시작
+                IsCapturing_Reset = true;
                 custom_Reset = -1;
                 IsCapturing_Reset_State = "Current keycode: None";
             }
@@ -550,9 +557,11 @@ namespace _Elsword__Title_Timer
 
 
 
+
             ImGui.Checkbox("Show [Night Parade of the White-Ghost]", ref state.ShowOverlaySample1);
             ImGui.Checkbox("Show [FreedShadow]", ref state.ShowOverlaySample2);
             ImGui.Checkbox("Show [The_Setting_Sun]", ref state.ShowOverlaySample3);
+
 
 
 
@@ -568,6 +577,7 @@ namespace _Elsword__Title_Timer
             // 불러오기 버튼
             if (presetFiles.Count > 0) // 파일이 존재할 때만 콤보 박스 표시
             {
+
                 ImGui.Combo("Load Preset", ref selectedPresetIndex, presetFiles.ToArray(), presetFiles.Count);
                 if (ImGui.Button("Load Selected Preset"))
                 {
@@ -939,7 +949,7 @@ namespace _Elsword__Title_Timer
                     timer_ChangeTitle.Change(Timeout.Infinite, Timeout.Infinite);
 
                 }
-                else if (keyCode == 39 && isChangeTitlePressed)
+                else if (keyCode == custom_Natural_Flow && isChangeTitlePressed)
                 {
                     title_Desc = "Natural Flow";
                     isChangeTitlePressed = false;
