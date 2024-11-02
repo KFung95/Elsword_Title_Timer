@@ -5,6 +5,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{1807FD81-9CC9-4E1E-AB02-5A7BBCF60204}|[Elsword] Title_Timer\\[Elsword] Title_Timer.csproj|d:\\mysource\\[elsword] title_timer\\[elsword] title_timer\\timeroverlay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1807FD81-9CC9-4E1E-AB02-5A7BBCF60204}|[Elsword] Title_Timer\\[Elsword] Title_Timer.csproj|solutionrelative:[elsword] title_timer\\timeroverlay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1807FD81-9CC9-4E1E-AB02-5A7BBCF60204}|[Elsword] Title_Timer\\[Elsword] Title_Timer.csproj|d:\\mysource\\[elsword] title_timer\\[elsword] title_timer\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1807FD81-9CC9-4E1E-AB02-5A7BBCF60204}|[Elsword] Title_Timer\\[Elsword] Title_Timer.csproj|solutionrelative:[elsword] title_timer\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1807FD81-9CC9-4E1E-AB02-5A7BBCF60204}|[Elsword] Title_Timer\\[Elsword] Title_Timer.csproj|D:\\Mysource\\[Elsword] Title_Timer\\[elsword] title_timer\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{1807FD81-9CC9-4E1E-AB02-5A7BBCF60204}|[Elsword] Title_Timer\\[Elsword] Title_Timer.csproj|solutionrelative:[elsword] title_timer\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,8 +22,33 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Form1.cs [\uB514\uC790\uC778]",
+              "DocumentMoniker": "D:\\Mysource\\[Elsword] Title_Timer\\[Elsword] Title_Timer\\Form1.cs",
+              "RelativeDocumentMoniker": "[Elsword] Title_Timer\\Form1.cs",
+              "ToolTip": "D:\\Mysource\\[Elsword] Title_Timer\\[Elsword] Title_Timer\\Form1.cs [\uB514\uC790\uC778]",
+              "RelativeToolTip": "[Elsword] Title_Timer\\Form1.cs [\uB514\uC790\uC778]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-02T08:06:34.892Z",
+              "EditorCaption": " [\uB514\uC790\uC778]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "D:\\Mysource\\[Elsword] Title_Timer\\[Elsword] Title_Timer\\Form1.cs",
+              "RelativeDocumentMoniker": "[Elsword] Title_Timer\\Form1.cs",
+              "ToolTip": "D:\\Mysource\\[Elsword] Title_Timer\\[Elsword] Title_Timer\\Form1.cs",
+              "RelativeToolTip": "[Elsword] Title_Timer\\Form1.cs",
+              "ViewState": "AgIAAJ8CAAAAAAAAAAAcwNQCAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-02T08:06:14.093Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -24,7 +57,7 @@
               "RelativeDocumentMoniker": "[Elsword] Title_Timer\\TimerOverlay.cs",
               "ToolTip": "D:\\Mysource\\[Elsword] Title_Timer\\[Elsword] Title_Timer\\TimerOverlay.cs",
               "RelativeToolTip": "[Elsword] Title_Timer\\TimerOverlay.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAIQCAAAAAAAAAAAAAKoCAABNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-30T09:02:35.837Z",
               "EditorCaption": ""

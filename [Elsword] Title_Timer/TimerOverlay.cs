@@ -26,6 +26,7 @@ using Vortice.Direct3D11.Debug;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Xml.Linq;
 using Vortice.Win32;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace _Elsword__Title_Timer
 {
@@ -51,15 +52,16 @@ namespace _Elsword__Title_Timer
 
     }
 
-    public class TimerOverlay : Overlay
+    public unsafe class TimerOverlay : Overlay
     {
-
 
         private Preset currentPreset = new Preset();
         private string presetFileName = "";
         private List<string> presetFiles = new List<string>();
         private string presetDirectory = "Presets"; // 프리셋 저장 디렉토리
         private int selectedPresetIndex = 0; // 선택된 프리셋 인덱스
+
+
 
         private void StartPreset()
         {
@@ -78,7 +80,6 @@ namespace _Elsword__Title_Timer
                 }
             }
 
-            LoadPreset(presetFileName);
 
         }
 
@@ -98,9 +99,9 @@ namespace _Elsword__Title_Timer
                 writer.WriteLine(custom_Onion);
                 writer.WriteLine(custom_Superhuman_Apple);
                 writer.WriteLine(custom_Reset);
-                writer.WriteLine(state.ShowOverlaySample1);
-                writer.WriteLine(state.ShowOverlaySample2);
-                writer.WriteLine(state.ShowOverlaySample3);
+                writer.WriteLine(Show_NPWG);
+                writer.WriteLine(Show_FreedShadow);
+                writer.WriteLine(Show_Dusk);
             }
 
 
@@ -111,52 +112,6 @@ namespace _Elsword__Title_Timer
 
         }
 
-        private void LoadPreset(string fileName)
-        {
-            string filePath = Path.Combine(presetDirectory, fileName + ".txt");
-            if (File.Exists(filePath))
-            {
-
-                presetFileName = fileName;
-                using (StreamReader reader = new StreamReader(filePath))
-                {
-                    custom_Minimize = int.Parse(reader.ReadLine());
-                    IsCapturing_Minimize_State = $"Current keycode: {(Keys)custom_Minimize}";
-                    custom_ChangeTitle = int.Parse(reader.ReadLine());
-                    IsCapturing_Switching_State = $"Current keycode: {(Keys)custom_ChangeTitle}";
-                    custom_NPWG = int.Parse(reader.ReadLine());
-                    IsCapturing_NPWG_State = $"Current keycode: {(Keys)custom_NPWG}";
-                    custom_NPWG_Skill = int.Parse(reader.ReadLine());
-                    IsCapturing_NPWG_Skill_State = $"Current keycode: {(Keys)custom_NPWG_Skill}";
-                    custom_FreedShadow = int.Parse(reader.ReadLine());
-                    IsCapturing_FreedShadow_State = $"Current keycode: {(Keys)custom_FreedShadow}";
-                    custom_The_Setting_Sun = int.Parse(reader.ReadLine());
-                    IsCapturing_The_Setting_Sun_State = $"Current keycode: {(Keys)custom_The_Setting_Sun}";
-                    custom_Natural_Flow = int.Parse(reader.ReadLine());
-                    IsCapturing_Natural_Flow_State = $"Current keycode: {(Keys)custom_Natural_Flow}";
-                    custom_Awakening = int.Parse(reader.ReadLine());
-                    IsCapturing_Awakening_State = $"Current keycode: {(Keys)custom_Awakening}";
-                    custom_Onion = int.Parse(reader.ReadLine());
-                    IsCapturing_Onion_State = $"Current keycode: {(Keys)custom_Onion}";
-                    custom_Superhuman_Apple = int.Parse(reader.ReadLine());
-                    IsCapturing_Superhuman_Apple_State = $"Current keycode: {(Keys)custom_Superhuman_Apple}";
-                    custom_Reset = int.Parse(reader.ReadLine());
-                    IsCapturing_Reset_State = $"Current keycode: {(Keys)custom_Reset}";
-                    state.ShowOverlaySample1 = bool.Parse(reader.ReadLine());
-                    state.ShowOverlaySample2 = bool.Parse(reader.ReadLine());
-                    state.ShowOverlaySample3 = bool.Parse(reader.ReadLine());
-                }
-
-                using (StreamWriter writer = new StreamWriter("recent_used.txt"))
-                {
-                    writer.WriteLine(presetFileName);
-                }
-            }
-            else
-            {
-                System.Console.WriteLine("Preset file not found!");
-            }
-        }
 
         private void LoadPresetFiles()
         {
@@ -179,8 +134,31 @@ namespace _Elsword__Title_Timer
         private static int custom_Natural_Flow;
         private static int custom_Awakening;
         private static int custom_Onion;
+        private static int custom_FOD;
         private static int custom_Superhuman_Apple;
         private static int custom_Reset;
+
+
+        public int form_custom_ChangeTitle;
+        public int form_custom_NPWG;
+        public int form_custom_NPWG_Skill;
+        public int form_custom_FreedShadow;
+        public int form_custom_Dusk;
+        public int form_custom_Natural;
+        public int form_custom_Awakening;
+        public int form_custom_Onion;
+        public int form_custom_Apple;
+        public int form_custom_FOD;
+        public int form_custom_TimerReset;
+        public bool Show_NPWG = true;
+        public bool Show_FreedShadow = true;
+        public bool Show_Dusk = true;
+        public bool Use_NPWG_FOD = false;
+        public bool Use_FreedShadow_FOD = false;
+        public bool Use_Dusk_FOD = false;
+        public bool ADD_User = false;
+        public bool allowResize = false;
+
 
         private volatile State state;
         private readonly Thread logicThread;
@@ -208,10 +186,18 @@ namespace _Elsword__Title_Timer
         public static bool IsCapturing_Reset = false;
         public static string IsCapturing_Reset_State = $"Current keycode: {(Keys)custom_Reset}";
 
+        private Thread overlayThread;
 
-
-        public TimerOverlay() : base(3840, 2160)
+        public unsafe TimerOverlay() : base(8000, 8000)
         {
+
+            overlayThread = new Thread(() =>
+            {
+                var form1 = new Form1(this); // TimerOverlay 인스턴스를 Form1에 전달
+                System.Windows.Forms.Application.Run(form1); // Form1을 메인 스레드에서 실행
+            });
+            overlayThread.SetApartmentState(ApartmentState.STA); // STA 스레드 설정
+            overlayThread.Start(); // 스레드 시작
 
             state = new State();
             logicThread = new Thread(() =>
@@ -244,11 +230,18 @@ namespace _Elsword__Title_Timer
 
         }
 
+
+
         public override void Close()
         {
             base.Close();
             this.state.IsRunning = false;
         }
+
+
+
+
+
 
         private void LogicUpdate(float updateDeltaTicks)
         {
@@ -268,8 +261,58 @@ namespace _Elsword__Title_Timer
 
             Thread.Sleep(state.LogicTickDelayInMilliseconds); //Not accurate at all as a mechanism for limiting thread runs
         }
+
+        public int FontSize { get; set; } = 55;
+        public float fontScale { get; set; } = 80 / 100f;
+        public float imgScale { get; set; } = 40 / 100f;
+
+        public bool isInitialized = false;
+        private unsafe void InitializeOnce()
+        {
+            ImGuiIOPtr io = ImGui.GetIO();
+            ReplaceFont(@"C:\Windows\Fonts\malgun.ttf", FontSize, FontGlyphRangeType.Korean);
+            io.FontGlobalScale = 1.0f;
+
+            SetHook();
+        }
+
+
+
+        private void synchronization()
+        {
+            custom_ChangeTitle = form_custom_ChangeTitle;
+            custom_NPWG = form_custom_NPWG;
+            custom_NPWG_Skill = form_custom_NPWG_Skill;
+            custom_FreedShadow = form_custom_FreedShadow;
+            custom_The_Setting_Sun = form_custom_Dusk;
+            custom_Natural_Flow = form_custom_Natural;
+            custom_Awakening = form_custom_Awakening;
+            custom_Onion = form_custom_Onion;
+            custom_Superhuman_Apple = form_custom_Apple;
+            custom_FOD = form_custom_FOD;
+            custom_Reset = form_custom_TimerReset;
+        }
+
+
+
+
+
+
+
+
         protected override void Render()
         {
+
+            //ImGui.ShowDemoWindow();
+            synchronization();
+
+            if (!isInitialized)
+            {
+                InitializeOnce(); // ImGui가 초기화된 후에만 실행
+                isInitialized = true; // 초기화 완료 표시
+            }
+
+
             var deltaSeconds = ImGui.GetIO().DeltaTime;
 
             if (!state.Visible)
@@ -294,311 +337,45 @@ namespace _Elsword__Title_Timer
 
             }
 
-
-
-            if (state.ShowOverlaySample1)
+            if (Show_NPWG)
             {
                 RenderOverlay_NPWG();
             }
-            if (state.ShowOverlaySample2)
+            if (Show_FreedShadow)
             {
                 RenderOverlay_Freed_Shadow();
             }
-            if (state.ShowOverlaySample3)
+            if (Show_Dusk)
             {
                 RenderOverlay_The_Setting_Sun();
             }
 
 
 
-            if (state.ShowClickableMenu)
-            {
-                RenderMainMenu();
-            }
-
             return;
         }
 
 
-        private void RenderMainMenu()
-        {
-            
-            bool isCollapsed = !ImGui.Begin(
-                "Title Timer main window",
-                ref state.IsRunning,
-                ImGuiWindowFlags.NoResize | ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoCollapse);
-
-            if (!state.IsRunning || isCollapsed)
-            {
-                ImGui.End();
-                if (!state.IsRunning)
-                {
-                    Close();
-                }
-
-                return;
-            }
-
-            SetHook();
-
-
-
-
-            // 키 값을 변경할 수 있는 슬라이더 추가
-            // 키 입력 캡처 버튼 추가
-            if (ImGui.Button("Change [minimize] key"))
-            {
-                IsCapturing_Minimize = true; // 칭호 변경키 캡처 시작
-                IsCapturing_Minimize_State = "Press the [minimize] key";
-            }
-            ImGui.SameLine();
-            if (ImGui.Button("Reset [minimize] key)"))
-            {
-                IsCapturing_Minimize = false;
-                custom_Minimize = -1;
-                IsCapturing_Minimize_State = "Current keycode: none";
-            }
-
-            // 캡처한 키 값 출력
-            ImGui.Text(IsCapturing_Minimize_State);
-            ImGui.Text("If you want to On/Off the this \"Title Timer main window\", press the [minimize] key.");
-            ImGui.Text("---------------------------------------------------------------");
-
-
-
-            if (ImGui.Button("Change [Title switching] key"))
-            {
-                IsCapturing_Switching = true; // 칭호 변경키 캡처 시작
-                IsCapturing_Switching_State = "Press the [Title] switching key";
-            }
-            ImGui.SameLine();
-            if (ImGui.Button("Reset [Title switching] key)"))
-            {
-                IsCapturing_Switching = false;
-                custom_ChangeTitle = -1;
-                IsCapturing_Switching_State = "Current keycode: None";
-
-            }
-
-            // 캡처한 키 값 출력
-            ImGui.Text(IsCapturing_Switching_State);
-            ImGui.Text("---------------------------------------------------------------");
-
-
-            if (ImGui.Button("Change [Night Parade of the White-Ghost] arrow key"))
-            {
-                IsCapturing_NPWG = true; // 칭호 변경키 캡처 시작
-                IsCapturing_NPWG_State = "Press the [Night Parade of the White-Ghost] arrow key";
-            }
-            ImGui.SameLine();
-            if (ImGui.Button("Reset [Night Parade of the White-Ghost] arrow key)"))
-            {
-                IsCapturing_NPWG = false;
-                custom_NPWG = -1;
-                IsCapturing_NPWG_State = "Current keycode: None";
-            }
-
-            // 캡처한 키 값 출력
-            ImGui.Text(IsCapturing_NPWG_State);
-            ImGui.Text("---------------------------------------------------------------");
-
-
-            if (ImGui.Button("Change [Night Parade of the White-Ghost] Skill Key)"))
-            {
-                IsCapturing_NPWG_Skill = true; // 칭호 변경키 캡처 시작
-                IsCapturing_NPWG_Skill_State = "Press the [Night Parade of the White-Ghost] Skill key";
-            }
-            ImGui.SameLine();
-            if (ImGui.Button("Reset [Night Parade of the White-Ghost] Skill Key"))
-            {
-                IsCapturing_NPWG_Skill = false;
-                custom_NPWG_Skill = -1;
-                IsCapturing_NPWG_Skill_State = "Current keycode: None";
-            }
-
-            // 캡처한 키 값 출력
-            ImGui.Text(IsCapturing_NPWG_Skill_State);
-            ImGui.Text("---------------------------------------------------------------");
-
-
-
-            if (ImGui.Button("Change [FreedShadow] arrow key"))
-            {
-                IsCapturing_FreedShadow = true; // 칭호 변경키 캡처 시작
-                IsCapturing_FreedShadow_State = "Press the [FreedShadow] arrow key";
-            }
-            ImGui.SameLine();
-            if (ImGui.Button("Reset [FreedShadow] arrow key"))
-            {
-                IsCapturing_FreedShadow = false;
-                custom_FreedShadow = -1;
-                IsCapturing_FreedShadow_State = "Current keycode: None";
-
-            }
-
-            // 캡처한 키 값 출력
-            ImGui.Text(IsCapturing_FreedShadow_State);
-            ImGui.Text("---------------------------------------------------------------");
-
-
-
-            if (ImGui.Button("Change [The_Setting_Sun] arrow key"))
-            {
-                IsCapturing_The_Setting_Sun = true; // 칭호 변경키 캡처 시작
-                IsCapturing_The_Setting_Sun_State = "Press the [The_Setting_Sun] arrow key";
-            }
-            ImGui.SameLine();
-            if (ImGui.Button("Reset [The_Setting_Sun] arrow key"))
-            {
-                IsCapturing_The_Setting_Sun = false;
-                custom_The_Setting_Sun = -1;
-                IsCapturing_The_Setting_Sun_State = "Current keycode: None";
-
-            }
-
-            // 캡처한 키 값 출력
-            ImGui.Text(IsCapturing_The_Setting_Sun_State);
-            ImGui.Text("---------------------------------------------------------------");
-
-
-
-            if (ImGui.Button("Change [Natural Flow] arrow key"))
-            {
-                IsCapturing_Natural_Flow = true; // 칭호 변경키 캡처 시작
-                IsCapturing_Natural_Flow_State = "Press the [Natural Flow] arrow key";
-            }
-            ImGui.SameLine();
-            if (ImGui.Button("Reset [Natural Flow] arrow key"))
-            {
-                IsCapturing_Natural_Flow = false;
-                custom_Natural_Flow = -1;
-                IsCapturing_Natural_Flow_State = "Current keycode: None";
-            }
-
-            // 캡처한 키 값 출력
-            ImGui.Text(IsCapturing_Natural_Flow_State);
-            ImGui.Text("---------------------------------------------------------------");
-
-
-
-            if (ImGui.Button("Change [Awakening] key"))
-            {
-                IsCapturing_Awakening = true; // 칭호 변경키 캡처 시작
-                IsCapturing_Awakening_State = "Press the [Awakening] key";
-            }
-            ImGui.SameLine();
-            if (ImGui.Button("Reset [Awakening] key"))
-            {
-                IsCapturing_Awakening = false;
-                custom_Awakening = -1;
-                IsCapturing_Awakening_State = "Current keycode: None";
-            }
-
-            // 캡처한 키 값 출력
-            ImGui.Text(IsCapturing_Awakening_State);
-            ImGui.Text("---------------------------------------------------------------");
-
-
-
-            if (ImGui.Button("Change [Onion] key"))
-            {
-                IsCapturing_Onion = true; // 칭호 변경키 캡처 시작
-                IsCapturing_Onion_State = "Press the [Onion] key";
-            }
-            ImGui.SameLine();
-            if (ImGui.Button("Reset [Onion] key"))
-            {
-                IsCapturing_Onion = false;
-                custom_Onion = -1;
-                IsCapturing_Onion_State = "Current keycode: None";
-            }
-
-            // 캡처한 키 값 출력
-            ImGui.Text(IsCapturing_Onion_State);
-            ImGui.Text("---------------------------------------------------------------");
-
-
-
-            if (ImGui.Button("Change [Superhuman_Apple] key"))
-            {
-                IsCapturing_Superhuman_Apple = true; // 칭호 변경키 캡처 시작
-                IsCapturing_Superhuman_Apple_State = "Press the [Superhuman_Apple] key";
-            }
-            ImGui.SameLine();
-            if (ImGui.Button("Reset [Superhuman_Apple] key"))
-            {
-                IsCapturing_Superhuman_Apple = false;
-                custom_Superhuman_Apple = -1;
-                IsCapturing_Superhuman_Apple_State = "Current keycode: None";
-            }
-
-            // 캡처한 키 값 출력
-            ImGui.Text(IsCapturing_Superhuman_Apple_State);
-            ImGui.Text("---------------------------------------------------------------");
-
-
-
-            if (ImGui.Button("Change [Timer_Reset] key"))
-            {
-                IsCapturing_Reset = true; // 칭호 변경키 캡처 시작
-                IsCapturing_Reset_State = "Press the [Timer_Reset] key";
-            }
-            ImGui.SameLine();
-            if (ImGui.Button("Reset [Timer_Reset] key"))
-            {
-                IsCapturing_Reset = true;
-                custom_Reset = -1;
-                IsCapturing_Reset_State = "Current keycode: None";
-            }
-
-            // 캡처한 키 값 출력
-            ImGui.Text(IsCapturing_Reset_State);
-            ImGui.Text("---------------------------------------------------------------");
-
-
-
-
-            ImGui.Checkbox("Show [Night Parade of the White-Ghost]", ref state.ShowOverlaySample1);
-            ImGui.Checkbox("Show [FreedShadow]", ref state.ShowOverlaySample2);
-            ImGui.Checkbox("Show [The_Setting_Sun]", ref state.ShowOverlaySample3);
-
-
-
-
-            ImGui.InputText("Plz input Preset Name", ref presetFileName, 100);
-
-            // 저장 버튼
-            if (ImGui.Button("Save Preset"))
-            {
-                SavePreset();
-                LoadPresetFiles(); // 저장 후 파일 목록 업데이트
-            }
-
-            // 불러오기 버튼
-            if (presetFiles.Count > 0) // 파일이 존재할 때만 콤보 박스 표시
-            {
-
-                ImGui.Combo("Load Preset", ref selectedPresetIndex, presetFiles.ToArray(), presetFiles.Count);
-                if (ImGui.Button("Load Selected Preset"))
-                {
-                    LoadPreset(presetFiles[selectedPresetIndex]);
-                }
-            }
-
-
-
-            ImGui.End();
-        }
-
         private void RenderOverlay_Freed_Shadow()
         {
+            var windowFlags = allowResize ? ImGuiWindowFlags.NoResize : ImGuiWindowFlags.None;
 
             ImGui.Begin(
                 "Freed_Shadow",
                 ImGuiWindowFlags.NoCollapse |
+                ImGuiWindowFlags.NoScrollbar |
                 ImGuiWindowFlags.NoTitleBar |
-                ImGuiWindowFlags.AlwaysAutoResize |
-                ImGuiWindowFlags.NoResize);
+                ImGuiWindowFlags.NoDocking | windowFlags);
+
+            var windowSize = ImGui.GetWindowSize();
+            float imgScaleFactor = imgScale;
+
+            // 이미지 크기 계산
+            var imgWidth = windowSize.X * imgScaleFactor;
+            var imgHeight = windowSize.Y * 0.8f;
+            var imgSize = new Vector2(imgWidth, imgHeight);
+
+
 
 
             if (FreedShadow_Count > 0)
@@ -613,10 +390,9 @@ namespace _Elsword__Title_Timer
                         out IntPtr imgPtr,
                         out uint w,
                         out uint h);
-                    ImGui.Image(imgPtr, new Vector2(w, h));
+                    ImGui.Image(imgPtr, imgSize);
 
-                    // 이미지 옆에 FreedShadow_Count 표시
-                    ImGui.SetWindowFontScale(5.0f); // 스케일 조정 (1.5배)
+                    ImGui.SetWindowFontScale(fontScale);
                     ImGui.SameLine();
                     ImGui.Text($"{FreedShadow_Count}");
 
@@ -637,9 +413,9 @@ namespace _Elsword__Title_Timer
                         out IntPtr imgPtr,
                         out uint w,
                         out uint h);
-                    ImGui.Image(imgPtr, new Vector2(w, h));
+                    ImGui.Image(imgPtr, imgSize);
 
-                    ImGui.SetWindowFontScale(5.0f); // 스케일 조정 (1.5배)
+                    ImGui.SetWindowFontScale(fontScale);
                     ImGui.SameLine();
                     ImGui.Text($"ON");
 
@@ -655,13 +431,24 @@ namespace _Elsword__Title_Timer
 
         private void RenderOverlay_NPWG()
         {
+            var windowFlags = allowResize ? ImGuiWindowFlags.NoResize : ImGuiWindowFlags.None;
 
             ImGui.Begin(
                 "NPWG",
                 ImGuiWindowFlags.NoCollapse |
+                ImGuiWindowFlags.NoScrollbar |
                 ImGuiWindowFlags.NoTitleBar |
-                ImGuiWindowFlags.AlwaysAutoResize |
-                ImGuiWindowFlags.NoResize);
+                ImGuiWindowFlags.NoDocking | windowFlags);
+
+
+            var windowSize = ImGui.GetWindowSize();
+            float imgScaleFactor = imgScale;
+
+            // 이미지 크기 계산
+            var imgWidth = windowSize.X * imgScaleFactor;
+            var imgHeight = windowSize.Y * 0.8f;
+            var imgSize = new Vector2(imgWidth, imgHeight);
+
 
 
             if (NPWG_Count > 0)
@@ -676,9 +463,9 @@ namespace _Elsword__Title_Timer
                         out IntPtr imgPtr,
                         out uint w,
                         out uint h);
-                    ImGui.Image(imgPtr, new Vector2(w, h));
+                    ImGui.Image(imgPtr, imgSize);
 
-                    ImGui.SetWindowFontScale(5.0f); // 스케일 조정 (1.5배)
+                    ImGui.SetWindowFontScale(fontScale);
                     ImGui.SameLine();
                     ImGui.Text($"{NPWG_Count}");
 
@@ -699,9 +486,9 @@ namespace _Elsword__Title_Timer
                         out IntPtr imgPtr,
                         out uint w,
                         out uint h);
-                    ImGui.Image(imgPtr, new Vector2(w, h));
+                    ImGui.Image(imgPtr, imgSize);
 
-                    ImGui.SetWindowFontScale(5.0f); // 스케일 조정 (1.5배)
+                    ImGui.SetWindowFontScale(fontScale);
                     ImGui.SameLine();
                     ImGui.Text($"ON");
 
@@ -717,13 +504,23 @@ namespace _Elsword__Title_Timer
 
         private void RenderOverlay_The_Setting_Sun()
         {
+            var windowFlags = allowResize ? ImGuiWindowFlags.NoResize : ImGuiWindowFlags.None;
 
             ImGui.Begin(
                 "The_Setting_Sun",
                 ImGuiWindowFlags.NoCollapse |
+                ImGuiWindowFlags.NoScrollbar |
                 ImGuiWindowFlags.NoTitleBar |
-                ImGuiWindowFlags.AlwaysAutoResize |
-                ImGuiWindowFlags.NoResize);
+                ImGuiWindowFlags.NoDocking | windowFlags);
+
+            // 현재 창의 크기 가져오기
+            var windowSize = ImGui.GetWindowSize();
+            float imgScaleFactor = imgScale;
+
+            // 이미지 크기 계산
+            var imgWidth = windowSize.X * imgScaleFactor;
+            var imgHeight = windowSize.Y * 0.8f;
+            var imgSize = new Vector2(imgWidth, imgHeight);
 
 
             if (The_Setting_Sun_Count > 0)
@@ -738,9 +535,9 @@ namespace _Elsword__Title_Timer
                         out IntPtr imgPtr,
                         out uint w,
                         out uint h);
-                    ImGui.Image(imgPtr, new Vector2(w, h));
+                    ImGui.Image(imgPtr, imgSize);
 
-                    ImGui.SetWindowFontScale(5.0f); // 스케일 조정 (1.5배)
+                    ImGui.SetWindowFontScale(fontScale);
                     ImGui.SameLine();
                     ImGui.Text($"{The_Setting_Sun_Count}");
 
@@ -761,9 +558,9 @@ namespace _Elsword__Title_Timer
                         out IntPtr imgPtr,
                         out uint w,
                         out uint h);
-                    ImGui.Image(imgPtr, new Vector2(w, h));
+                    ImGui.Image(imgPtr, imgSize);
 
-                    ImGui.SetWindowFontScale(5.0f); // 스케일 조정 (1.5배)
+                    ImGui.SetWindowFontScale(fontScale);
                     ImGui.SameLine();
                     ImGui.Text($"ON");
 
@@ -773,6 +570,7 @@ namespace _Elsword__Title_Timer
                     ImGui.Text("Put any image where the exe is, name is 'The_Setting_Sun.png'");
                 }
             }
+
             ImGui.End();
 
         }
@@ -844,86 +642,6 @@ namespace _Elsword__Title_Timer
         private static IntPtr KeyboardHookProc(int code, IntPtr wParam, IntPtr lParam)
         {
 
-            if (IsCapturing_Minimize && code >= 0)
-            {
-                int keyCode = Marshal.ReadInt32(lParam);
-                custom_Minimize = keyCode; // 캡처한 키 코드를 저장
-                IsCapturing_Minimize = false; // 키 캡처 상태 종료
-                Minimize_count = 0;
-                IsCapturing_Minimize_State = $"Current keycode: {(Keys)custom_Minimize}";
-            }
-            else if (IsCapturing_Switching && code >= 0)
-            {
-                int keyCode = Marshal.ReadInt32(lParam);
-                custom_ChangeTitle = keyCode; // 캡처한 키 코드를 저장
-                IsCapturing_Switching = false; // 키 캡처 상태 종료
-                IsCapturing_Switching_State = $"Current keycode: {(Keys)custom_ChangeTitle}";
-            }
-            else if (IsCapturing_NPWG && code >= 0)
-            {
-                int keyCode = Marshal.ReadInt32(lParam);
-                custom_NPWG = keyCode; // 캡처한 키 코드를 저장
-                IsCapturing_NPWG = false; // 키 캡처 상태 종료
-                IsCapturing_NPWG_State = $"Current keycode: {(Keys)custom_NPWG}";
-            }
-            else if (IsCapturing_NPWG_Skill && code >= 0)
-            {
-                int keyCode = Marshal.ReadInt32(lParam);
-                custom_NPWG_Skill = keyCode; // 캡처한 키 코드를 저장
-                IsCapturing_NPWG_Skill = false; // 키 캡처 상태 종료
-                IsCapturing_NPWG_Skill_State = $"Current keycode: {(Keys)custom_NPWG_Skill}";
-            }
-            else if (IsCapturing_FreedShadow && code >= 0)
-            {
-                int keyCode = Marshal.ReadInt32(lParam);
-                custom_FreedShadow = keyCode; // 캡처한 키 코드를 저장
-                IsCapturing_FreedShadow = false; // 키 캡처 상태 종료
-                IsCapturing_FreedShadow_State = $"Current keycode: {(Keys)custom_FreedShadow}";
-            }
-            else if (IsCapturing_The_Setting_Sun && code >= 0)
-            {
-                int keyCode = Marshal.ReadInt32(lParam);
-                custom_The_Setting_Sun = keyCode; // 캡처한 키 코드를 저장
-                IsCapturing_The_Setting_Sun = false; // 키 캡처 상태 종료
-                IsCapturing_The_Setting_Sun_State = $"Current keycode: {(Keys)custom_The_Setting_Sun}";
-            }
-            else if (IsCapturing_Natural_Flow && code >= 0)
-            {
-                int keyCode = Marshal.ReadInt32(lParam);
-                custom_Natural_Flow = keyCode; // 캡처한 키 코드를 저장
-                IsCapturing_Natural_Flow = false; // 키 캡처 상태 종료
-                IsCapturing_Natural_Flow_State = $"Current keycode: {(Keys)custom_Natural_Flow}";
-            }
-            else if (IsCapturing_Awakening && code >= 0)
-            {
-                int keyCode = Marshal.ReadInt32(lParam);
-                custom_Awakening = keyCode; // 캡처한 키 코드를 저장
-                IsCapturing_Awakening = false; // 키 캡처 상태 종료
-                IsCapturing_Awakening_State = $"Current keycode: {(Keys)custom_Awakening}";
-            }
-            else if (IsCapturing_Onion && code >= 0)
-            {
-                int keyCode = Marshal.ReadInt32(lParam);
-                custom_Onion = keyCode; // 캡처한 키 코드를 저장
-                IsCapturing_Onion = false; // 키 캡처 상태 종료
-                IsCapturing_Onion_State = $"Current keycode: {(Keys)custom_Onion}";
-            }
-            else if (IsCapturing_Superhuman_Apple && code >= 0)
-            {
-                int keyCode = Marshal.ReadInt32(lParam);
-                custom_Superhuman_Apple = keyCode; // 캡처한 키 코드를 저장
-                IsCapturing_Superhuman_Apple = false; // 키 캡처 상태 종료
-                IsCapturing_Superhuman_Apple_State = $"Current keycode: {(Keys)custom_Superhuman_Apple}";
-            }
-            else if (IsCapturing_Reset && code >= 0)
-            {
-                int keyCode = Marshal.ReadInt32(lParam);
-                custom_Reset = keyCode; // 캡처한 키 코드를 저장
-                IsCapturing_Reset = false; // 키 캡처 상태 종료
-                IsCapturing_Reset_State = $"Current keycode: {(Keys)custom_Reset}";
-            }
-
-
             if (code >= 0 && (int)wParam == 256)
             {
                 int keyCode = Marshal.ReadInt32(lParam);
@@ -966,7 +684,7 @@ namespace _Elsword__Title_Timer
                 {
                     if (NPWG_Count <= 0)
                     {
-                        NPWG_Count = 25;
+                        NPWG_Count = 26;
                         timer_NPWG.Change(0, 1000);
                     }
                 }
@@ -974,7 +692,7 @@ namespace _Elsword__Title_Timer
                 {
                     if (FreedShadow_Count <= 0)
                     {
-                        FreedShadow_Count = 60;
+                        FreedShadow_Count = 61;
                         timer_FreedShadow.Change(0, 1000);
                     }
                 }
@@ -982,7 +700,7 @@ namespace _Elsword__Title_Timer
                 {
                     if (The_Setting_Sun_Count <= 0)
                     {
-                        The_Setting_Sun_Count = 30;
+                        The_Setting_Sun_Count = 31;
                         timer_The_Setting_Sun.Change(0, 1000);
                     }
                 }
@@ -996,6 +714,7 @@ namespace _Elsword__Title_Timer
 
                 }
             }
+
             return CallNextHookEx(keyHook, code, wParam, lParam);
         }
 
@@ -1039,6 +758,8 @@ namespace _Elsword__Title_Timer
 
         }
 
+
+
         private void UnHook()
         {
             UnhookWindowsHookEx(keyHook);
@@ -1048,6 +769,10 @@ namespace _Elsword__Title_Timer
         {
             UnHook();
         }
+
+
+
+
     }
 }
 

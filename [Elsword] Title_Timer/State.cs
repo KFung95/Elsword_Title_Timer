@@ -9,9 +9,9 @@
 
         public readonly Stopwatch Watch = Stopwatch.StartNew();
         public bool ShowClickableMenu = true;
-        public bool ShowOverlaySample1 = true;
-        public bool ShowOverlaySample2 = true;
-        public bool ShowOverlaySample3 = true;
+        //public bool ShowOverlaySample1 = true;
+        //public bool ShowOverlaySample2 = true;
+        //public bool ShowOverlaySample3 = true;
         public bool ShowImGuiDemo = false;
         public int[] resizeHelper = new int[4] { 0, 0, 2560, 1440 };
         public int Seconds = 5;
