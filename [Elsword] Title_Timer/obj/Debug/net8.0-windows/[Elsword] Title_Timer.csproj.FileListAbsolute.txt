@@ -32,4 +32,4 @@ D:\Mysource\[Elsword] Title_Timer\[Elsword] Title_Timer\bin\Debug\net8.0-windows
 D:\Mysource\[Elsword] Title_Timer\[Elsword] Title_Timer\bin\Debug\net8.0-windows\runtimes\win-x64\native\cimgui.dll
 D:\Mysource\[Elsword] Title_Timer\[Elsword] Title_Timer\bin\Debug\net8.0-windows\runtimes\win-x86\native\cimgui.dll
 D:\Mysource\[Elsword] Title_Timer\[Elsword] Title_Timer\obj\Debug\net8.0-windows\[Elsword] Title_Timer.sourcelink.json
-D:\Mysource\[Elsword] Title_Timer\[Elsword] Title_Timer\obj\Debug\net8.0-windows\_Elsword__Title_Timer.Form1.resources
+D:\Mysource\[Elsword] Title_Timer\[Elsword] Title_Timer\obj\Debug\net8.0-windows\_Elsword__Title_Timer.Preset.resources

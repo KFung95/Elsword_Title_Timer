@@ -1,20 +1,26 @@
-﻿using Microsoft.VisualBasic.Devices;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.AxHost;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
+﻿using System.Data;
+
 
 namespace _Elsword__Title_Timer
 {
+
+    public class Preset
+    {
+        public int Value_custom_Minimize { get; set; }
+        public int Value_custom_ChangeTitle { get; set; }
+        public int Value_custom_NPWG { get; set; }
+        public int Value_custom_NPWG_Skill { get; set; }
+        public int Value_custom_FreedShadow { get; set; }
+        public int Value_custom_The_Setting_Sun { get; set; }
+        public int Value_custom_Natural_Flow { get; set; }
+        public int Value_custom_Awakening { get; set; }
+        public int Value_custom_Onion { get; set; }
+        public int Value_custom_Superhuman_Apple { get; set; }
+        public int Value_custom_Reset { get; set; }
+        public bool Value_show_NPWG { get; set; }
+        public bool Value_show_FreedShadow { get; set; }
+        public bool Value_show_The_Setting_Sun { get; set; }
+    }
     public partial class Form1 : Form
     {
         [System.Runtime.InteropServices.DllImport("user32.dll")]
@@ -46,6 +52,7 @@ namespace _Elsword__Title_Timer
         {
             InitializeComponent();
             timerOverlay = overlay; // TimerOverlay 인스턴스를 저장
+            this.FormClosing += OnFormClosing; // FormClosing 이벤트 핸들러 등록
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -59,6 +66,11 @@ namespace _Elsword__Title_Timer
             // 기존 프리셋 파일 로드
             LoadPresetFiles();
             StartPreset();
+        }
+
+        private void OnFormClosing(object sender, FormClosingEventArgs e)
+        {
+            timerOverlay.Close(); // TimerOverlay의 Close 메서드 호출
         }
 
         private void StartPreset()
@@ -101,10 +113,10 @@ namespace _Elsword__Title_Timer
                 writer.WriteLine(timerOverlay.Show_NPWG);
                 writer.WriteLine(timerOverlay.Show_FreedShadow);
                 writer.WriteLine(timerOverlay.Show_Dusk);
-                writer.WriteLine(timerOverlay.Use_NPWG_FOD);
-                writer.WriteLine(timerOverlay.Use_FreedShadow_FOD);
-                writer.WriteLine(timerOverlay.Use_Dusk_FOD);
-                writer.WriteLine(timerOverlay.ADD_User);
+                writer.WriteLine(timerOverlay.form_Use_NPWG_FOD);
+                writer.WriteLine(timerOverlay.form_Use_FreedShadow_FOD);
+                writer.WriteLine(timerOverlay.form_Use_Dusk_FOD);
+                writer.WriteLine(timerOverlay.form_ADD_User);
                 writer.WriteLine(timerOverlay.allowResize);
             }
 
@@ -142,10 +154,10 @@ namespace _Elsword__Title_Timer
                     timerOverlay.Show_NPWG = bool.Parse(reader.ReadLine());
                     timerOverlay.Show_FreedShadow = bool.Parse(reader.ReadLine());
                     timerOverlay.Show_Dusk = bool.Parse(reader.ReadLine());
-                    timerOverlay.Use_NPWG_FOD = bool.Parse(reader.ReadLine());
-                    timerOverlay.Use_FreedShadow_FOD = bool.Parse(reader.ReadLine());
-                    timerOverlay.Use_Dusk_FOD = bool.Parse(reader.ReadLine());
-                    timerOverlay.ADD_User = bool.Parse(reader.ReadLine());
+                    timerOverlay.form_Use_NPWG_FOD = bool.Parse(reader.ReadLine());
+                    timerOverlay.form_Use_FreedShadow_FOD = bool.Parse(reader.ReadLine());
+                    timerOverlay.form_Use_Dusk_FOD = bool.Parse(reader.ReadLine());
+                    timerOverlay.form_ADD_User = bool.Parse(reader.ReadLine());
                     timerOverlay.allowResize = bool.Parse(reader.ReadLine());
 
                     label_Switching.Text = "현재 등록된 키\r\n" + "[" + (Keys)timerOverlay.form_custom_ChangeTitle + "]";
@@ -162,10 +174,10 @@ namespace _Elsword__Title_Timer
                     check_NPWG.Checked = timerOverlay.Show_NPWG;
                     check_FreedShadow.Checked = timerOverlay.Show_FreedShadow;
                     check_Dusk.Checked = timerOverlay.Show_Dusk;
-                    check_NPWG_FOD.Checked = timerOverlay.Use_NPWG_FOD;
-                    check_FreedShadow_FOD.Checked = timerOverlay.Use_FreedShadow_FOD;
-                    check_Dusk_FOD.Checked = timerOverlay.Use_Dusk_FOD;
-                    check_ADD_User.Checked = timerOverlay.ADD_User;
+                    check_NPWG_FOD.Checked = timerOverlay.form_Use_NPWG_FOD;
+                    check_FreedShadow_FOD.Checked = timerOverlay.form_Use_FreedShadow_FOD;
+                    check_Dusk_FOD.Checked = timerOverlay.form_Use_Dusk_FOD;
+                    check_ADD_User.Checked = timerOverlay.form_ADD_User;
                     check_Resize.Checked = timerOverlay.allowResize;
 
 
@@ -633,11 +645,11 @@ namespace _Elsword__Title_Timer
         {
             if (check_NPWG_FOD.Checked)
             {
-                timerOverlay.Use_NPWG_FOD = true;
+                timerOverlay.form_Use_NPWG_FOD = true;
             }
             else
             {
-                timerOverlay.Use_NPWG_FOD = false;
+                timerOverlay.form_Use_NPWG_FOD = false;
             }
         }
 
@@ -645,11 +657,11 @@ namespace _Elsword__Title_Timer
         {
             if (check_FreedShadow_FOD.Checked)
             {
-                timerOverlay.Use_FreedShadow_FOD = true;
+                timerOverlay.form_Use_FreedShadow_FOD = true;
             }
             else
             {
-                timerOverlay.Use_FreedShadow_FOD = false;
+                timerOverlay.form_Use_FreedShadow_FOD = false;
             }
         }
 
@@ -657,11 +669,11 @@ namespace _Elsword__Title_Timer
         {
             if (check_Dusk_FOD.Checked)
             {
-                timerOverlay.Use_Dusk_FOD = true;
+                timerOverlay.form_Use_Dusk_FOD = true;
             }
             else
             {
-                timerOverlay.Use_Dusk_FOD = false;
+                timerOverlay.form_Use_Dusk_FOD = false;
             }
         }
 
@@ -669,11 +681,11 @@ namespace _Elsword__Title_Timer
         {
             if (check_ADD_User.Checked)
             {
-                timerOverlay.ADD_User = true;
+                timerOverlay.form_ADD_User = true;
             }
             else
             {
-                timerOverlay.ADD_User = false;
+                timerOverlay.form_ADD_User = false;
             }
         }
 

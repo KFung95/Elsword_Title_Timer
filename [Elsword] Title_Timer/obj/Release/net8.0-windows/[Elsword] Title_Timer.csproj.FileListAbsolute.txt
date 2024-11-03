@@ -32,3 +32,4 @@ D:\Mysource\[Elsword] Title_Timer\[Elsword] Title_Timer\obj\Release\net8.0-windo
 D:\Mysource\[Elsword] Title_Timer\[Elsword] Title_Timer\obj\Release\net8.0-windows\_Elsword__Title_Timer.Properties.Resources.resources
 D:\Mysource\[Elsword] Title_Timer\[Elsword] Title_Timer\obj\Release\net8.0-windows\[Elsword.D8B00809.Up2Date
 D:\Mysource\[Elsword] Title_Timer\[Elsword] Title_Timer\obj\Release\net8.0-windows\[Elsword] Title_Timer.sourcelink.json
+D:\Mysource\[Elsword] Title_Timer\[Elsword] Title_Timer\obj\Release\net8.0-windows\_Elsword__Title_Timer.Preset.resources

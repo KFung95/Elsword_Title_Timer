@@ -1,129 +1,17 @@
 ﻿
-using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.Timers;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Reflection.Emit;
-using System.Drawing.Imaging;
 using ClickableTransparentOverlay;
-using ClickableTransparentOverlay.Win32;
 using ImGuiNET;
-using System.IO;
 using System.Numerics;
-using static System.Windows.Forms.AxHost;
-using Microsoft.VisualBasic.ApplicationServices;
-using System.Text.Unicode;
-using Vortice.Direct3D11.Debug;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Xml.Linq;
-using Vortice.Win32;
-using static System.Net.Mime.MediaTypeNames;
+
 
 namespace _Elsword__Title_Timer
 {
-    public class Preset
-    {
-        public int Value_custom_Minimize { get; set; }
-        public int Value_custom_ChangeTitle { get; set; }
-        public int Value_custom_NPWG { get; set; }
-        public int Value_custom_NPWG_Skill { get; set; }
-        public int Value_custom_FreedShadow { get; set; }
-        public int Value_custom_The_Setting_Sun { get; set; }
-        public int Value_custom_Natural_Flow { get; set; }
-        public int Value_custom_Awakening { get; set; }
-        public int Value_custom_Onion { get; set; }
-        public int Value_custom_Superhuman_Apple { get; set; }
-        public int Value_custom_Reset { get; set; }
-
-
-        public bool Value_show_NPWG { get; set; }
-        public bool Value_show_FreedShadow { get; set; }
-
-        public bool Value_show_The_Setting_Sun { get; set; }
-
-    }
 
     public unsafe class TimerOverlay : Overlay
     {
 
-        private Preset currentPreset = new Preset();
-        private string presetFileName = "";
-        private List<string> presetFiles = new List<string>();
-        private string presetDirectory = "Presets"; // 프리셋 저장 디렉토리
-        private int selectedPresetIndex = 0; // 선택된 프리셋 인덱스
-
-
-
-        private void StartPreset()
-        {
-            if (File.Exists("recent_used.txt"))
-            {
-                using (StreamReader reader = new StreamReader("recent_used.txt"))
-                {
-                    presetFileName = (string)(reader.ReadLine());
-                }
-            }
-            else
-            {
-                using (StreamWriter writer = new StreamWriter("recent_used.txt"))
-                {
-                    writer.WriteLine("");
-                }
-            }
-
-
-        }
-
-        private void SavePreset()
-        {
-            string filePath = Path.Combine(presetDirectory, presetFileName + ".txt");
-            using (StreamWriter writer = new StreamWriter(filePath))
-            {
-                writer.WriteLine(custom_Minimize);
-                writer.WriteLine(custom_ChangeTitle);
-                writer.WriteLine(custom_NPWG);
-                writer.WriteLine(custom_NPWG_Skill);
-                writer.WriteLine(custom_FreedShadow);
-                writer.WriteLine(custom_The_Setting_Sun);
-                writer.WriteLine(custom_Natural_Flow);
-                writer.WriteLine(custom_Awakening);
-                writer.WriteLine(custom_Onion);
-                writer.WriteLine(custom_Superhuman_Apple);
-                writer.WriteLine(custom_Reset);
-                writer.WriteLine(Show_NPWG);
-                writer.WriteLine(Show_FreedShadow);
-                writer.WriteLine(Show_Dusk);
-            }
-
-
-            using (StreamWriter writer = new StreamWriter("recent_used.txt"))
-            {
-                writer.WriteLine(presetFileName);
-            }
-
-        }
-
-
-        private void LoadPresetFiles()
-        {
-            presetFiles.Clear();
-            if (Directory.Exists(presetDirectory))
-            {
-                presetFiles.AddRange(Directory.GetFiles(presetDirectory, "*.txt").Select(Path.GetFileNameWithoutExtension));
-            }
-        }
-
-
-        public static int Minimize_count = 1;
 
         private static int custom_Minimize;
         private static int custom_ChangeTitle;
@@ -137,6 +25,10 @@ namespace _Elsword__Title_Timer
         private static int custom_FOD;
         private static int custom_Superhuman_Apple;
         private static int custom_Reset;
+        public static bool Use_NPWG_FOD = false;
+        public static bool Use_FreedShadow_FOD = false;
+        public static bool Use_Dusk_FOD = false;
+        public static bool ADD_User = false;
 
 
         public int form_custom_ChangeTitle;
@@ -153,38 +45,15 @@ namespace _Elsword__Title_Timer
         public bool Show_NPWG = true;
         public bool Show_FreedShadow = true;
         public bool Show_Dusk = true;
-        public bool Use_NPWG_FOD = false;
-        public bool Use_FreedShadow_FOD = false;
-        public bool Use_Dusk_FOD = false;
-        public bool ADD_User = false;
+        public bool form_Use_NPWG_FOD = false;
+        public bool form_Use_FreedShadow_FOD = false;
+        public bool form_Use_Dusk_FOD = false;
+        public bool form_ADD_User = false;
         public bool allowResize = false;
+        public bool IsRunning = true;
 
 
-        private volatile State state;
-        private readonly Thread logicThread;
-
-        public static bool IsCapturing_Minimize = false;
-        public static string IsCapturing_Minimize_State = $"Current keycode: {(Keys)custom_Minimize}";
-        public static bool IsCapturing_Switching = false;
-        public static string IsCapturing_Switching_State = $"Current keycode: {(Keys)custom_ChangeTitle}";
-        public static bool IsCapturing_NPWG = false;
-        public static string IsCapturing_NPWG_State = $"Current keycode: {(Keys)custom_NPWG}";
-        public static bool IsCapturing_NPWG_Skill = false;
-        public static string IsCapturing_NPWG_Skill_State = $"Current keycode: {(Keys)custom_NPWG_Skill}";
-        public static bool IsCapturing_FreedShadow = false;
-        public static string IsCapturing_FreedShadow_State = $"Current keycode: {(Keys)custom_FreedShadow}";
-        public static bool IsCapturing_The_Setting_Sun = false;
-        public static string IsCapturing_The_Setting_Sun_State = $"Current keycode: {(Keys)custom_The_Setting_Sun}";
-        public static bool IsCapturing_Natural_Flow = false;
-        public static string IsCapturing_Natural_Flow_State = $"Current keycode: {(Keys)custom_Natural_Flow}";
-        public static bool IsCapturing_Awakening = false;
-        public static string IsCapturing_Awakening_State = $"Current keycode: {(Keys)custom_Awakening}";
-        public static bool IsCapturing_Onion = false;
-        public static string IsCapturing_Onion_State = $"Current keycode: {(Keys)custom_Onion}";
-        public static bool IsCapturing_Superhuman_Apple = false;
-        public static string IsCapturing_Superhuman_Apple_State = $"Current keycode: {(Keys)custom_Superhuman_Apple}";
-        public static bool IsCapturing_Reset = false;
-        public static string IsCapturing_Reset_State = $"Current keycode: {(Keys)custom_Reset}";
+        private static int awakening_Count = 1;
 
         private Thread overlayThread;
 
@@ -199,68 +68,8 @@ namespace _Elsword__Title_Timer
             overlayThread.SetApartmentState(ApartmentState.STA); // STA 스레드 설정
             overlayThread.Start(); // 스레드 시작
 
-            state = new State();
-            logicThread = new Thread(() =>
-            {
-                var lastRunTickStamp = state.Watch.ElapsedTicks;
-
-                while (state.IsRunning)
-                {
-                    var currentRunTickStamp = state.Watch.ElapsedTicks;
-                    var delta = currentRunTickStamp - lastRunTickStamp;
-                    LogicUpdate(delta);
-                    lastRunTickStamp = currentRunTickStamp;
-                }
-            });
-
-            logicThread.Start();
-
-
-
-            // 프리셋 디렉토리 생성
-            if (!Directory.Exists(presetDirectory))
-            {
-                Directory.CreateDirectory(presetDirectory);
-            }
-
-            // 기존 프리셋 파일 로드
-            LoadPresetFiles();
-            StartPreset();
-
-
         }
 
-
-
-        public override void Close()
-        {
-            base.Close();
-            this.state.IsRunning = false;
-        }
-
-
-
-
-
-
-        private void LogicUpdate(float updateDeltaTicks)
-        {
-            state.LogicalDelta = updateDeltaTicks;
-
-            if (state.RequestLogicThreadSleep)
-            {
-                Thread.Sleep(TimeSpan.FromSeconds(state.SleepInSeconds));
-                state.RequestLogicThreadSleep = false;
-            }
-
-            if (state.LogicThreadCloseOverlay)
-            {
-                Close();
-                state.LogicThreadCloseOverlay = false;
-            }
-
-            Thread.Sleep(state.LogicTickDelayInMilliseconds); //Not accurate at all as a mechanism for limiting thread runs
-        }
 
         public int FontSize { get; set; } = 55;
         public float fontScale { get; set; } = 80 / 100f;
@@ -291,12 +100,11 @@ namespace _Elsword__Title_Timer
             custom_Superhuman_Apple = form_custom_Apple;
             custom_FOD = form_custom_FOD;
             custom_Reset = form_custom_TimerReset;
+            Use_NPWG_FOD = form_Use_NPWG_FOD;
+            Use_FreedShadow_FOD = form_Use_FreedShadow_FOD;
+            Use_Dusk_FOD = form_Use_Dusk_FOD;
+            ADD_User = form_ADD_User;
         }
-
-
-
-
-
 
 
 
@@ -312,30 +120,6 @@ namespace _Elsword__Title_Timer
                 isInitialized = true; // 초기화 완료 표시
             }
 
-
-            var deltaSeconds = ImGui.GetIO().DeltaTime;
-
-            if (!state.Visible)
-            {
-                state.ReappearTimeRemaining -= deltaSeconds;
-                if (state.ReappearTimeRemaining < 0)
-                {
-                    state.Visible = true;
-                }
-
-                return;
-            }
-
-            if (Utils.IsKeyPressedAndNotTimeout((VK)custom_Minimize))
-            {
-                if (custom_Minimize != 0 && Minimize_count > 0)
-                {
-                    state.ShowClickableMenu = !state.ShowClickableMenu;
-                }
-
-                Minimize_count++;
-
-            }
 
             if (Show_NPWG)
             {
@@ -584,8 +368,7 @@ namespace _Elsword__Title_Timer
         private static extern IntPtr CallNextHookEx(IntPtr IdHook, int nCode, IntPtr wParam, IntPtr IParam);
         [DllImport("kernel32.dll")]
         private static extern IntPtr GetModuleHandle(string ipModuleName);
-        [DllImport("kernel32.dll")]
-        private static extern IntPtr LoadLibrary(string IpFileName);
+
 
         private const int WH_KEYBOARD_LL = 13;
 
@@ -600,7 +383,6 @@ namespace _Elsword__Title_Timer
 
         private static LowLevelKeyboardProc keyboardProc = KeyboardHookProc;
         private static IntPtr keyHook = IntPtr.Zero;
-
 
 
         private static System.Threading.Timer timer_ChangeTitle = new System.Threading.Timer(TimerCallback_ChangeTitle, null, Timeout.Infinite, Timeout.Infinite);
@@ -621,21 +403,6 @@ namespace _Elsword__Title_Timer
                     keyHook = SetWindowsHookEx(WH_KEYBOARD_LL, keyboardProc, GetModuleHandle(curModule.ModuleName), 0);
                 }
             }
-        }
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetForegroundWindow();
-
-        [DllImport("user32.dll")]
-        private static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
-
-        [StructLayout(LayoutKind.Sequential)]
-        private struct RECT
-        {
-            public int Left;
-            public int Top;
-            public int Right;
-            public int Bottom;
         }
 
 
@@ -680,7 +447,7 @@ namespace _Elsword__Title_Timer
                     timer_ChangeTitle.Change(Timeout.Infinite, Timeout.Infinite);
 
                 }
-                else if (keyCode == custom_NPWG_Skill && title_Desc == "NPWG")
+                else if (keyCode == custom_NPWG_Skill && title_Desc == "NPWG" && !Use_NPWG_FOD)
                 {
                     if (NPWG_Count <= 0)
                     {
@@ -688,7 +455,60 @@ namespace _Elsword__Title_Timer
                         timer_NPWG.Change(0, 1000);
                     }
                 }
-                else if ((keyCode == custom_Awakening || keyCode == custom_Onion || keyCode == custom_Superhuman_Apple) && title_Desc == "FreedShadow")
+                else if (keyCode == custom_Awakening && !Use_NPWG_FOD)
+                {
+                    if (ADD_User)
+                    {
+                        if (awakening_Count == 1)
+                        {
+                            if (title_Desc == "FreedShadow")
+                            {
+                                if (FreedShadow_Count <= 0)
+                                {
+                                    FreedShadow_Count = 61;
+                                    timer_FreedShadow.Change(0, 1000);
+                                }
+                            }
+                            else if (title_Desc == "The_Setting_Sun")
+                            {
+                                if (The_Setting_Sun_Count <= 0)
+                                {
+                                    The_Setting_Sun_Count = 31;
+                                    timer_The_Setting_Sun.Change(0, 1000);
+                                }
+                            }
+
+                            awakening_Count = 0;
+                        }
+                        else
+                        {
+                            awakening_Count++;
+                        }
+
+                    }
+                    else
+                    {
+                        if (title_Desc == "FreedShadow")
+                        {
+                            if (FreedShadow_Count <= 0)
+                            {
+                                FreedShadow_Count = 61;
+                                timer_FreedShadow.Change(0, 1000);
+                            }
+                        }
+                        else if (title_Desc == "The_Setting_Sun")
+                        {
+                            if (The_Setting_Sun_Count <= 0)
+                            {
+                                The_Setting_Sun_Count = 31;
+                                timer_The_Setting_Sun.Change(0, 1000);
+                            }
+                        }
+                    }
+                }
+
+
+                else if ((keyCode == custom_Onion || keyCode == custom_Superhuman_Apple) && title_Desc == "FreedShadow" && !Use_NPWG_FOD)
                 {
                     if (FreedShadow_Count <= 0)
                     {
@@ -696,12 +516,39 @@ namespace _Elsword__Title_Timer
                         timer_FreedShadow.Change(0, 1000);
                     }
                 }
-                else if ((keyCode == custom_Awakening || keyCode == custom_Onion || keyCode == custom_Superhuman_Apple) && title_Desc == "The_Setting_Sun")
+                else if ((keyCode == custom_Onion || keyCode == custom_Superhuman_Apple) && title_Desc == "The_Setting_Sun" && !Use_NPWG_FOD)
                 {
                     if (The_Setting_Sun_Count <= 0)
                     {
                         The_Setting_Sun_Count = 31;
                         timer_The_Setting_Sun.Change(0, 1000);
+                    }
+                }
+                else if (keyCode == custom_FOD && Use_NPWG_FOD)
+                {
+                    if (title_Desc == "NPWG")
+                    {
+                        if (NPWG_Count <= 0)
+                        {
+                            NPWG_Count = 26;
+                            timer_NPWG.Change(0, 1000);
+                        }
+                    }
+                    else if (title_Desc == "FreedShadow")
+                    {
+                        if (FreedShadow_Count <= 0)
+                        {
+                            FreedShadow_Count = 61;
+                            timer_FreedShadow.Change(0, 1000);
+                        }
+                    }
+                    else if (title_Desc == "The_Setting_Sun")
+                    {
+                        if (The_Setting_Sun_Count <= 0)
+                        {
+                            The_Setting_Sun_Count = 31;
+                            timer_The_Setting_Sun.Change(0, 1000);
+                        }
                     }
                 }
                 else if (keyCode == custom_Reset)
@@ -711,6 +558,7 @@ namespace _Elsword__Title_Timer
                     NPWG_Count = 0;
                     FreedShadow_Count = 0;
                     The_Setting_Sun_Count = 0;
+                    awakening_Count = 1;
 
                 }
             }
