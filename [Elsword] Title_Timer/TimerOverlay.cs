@@ -50,7 +50,6 @@ namespace _Elsword__Title_Timer
         public bool form_Use_Dusk_FOD = false;
         public bool form_ADD_User = false;
         public bool allowResize = false;
-        public bool IsRunning = true;
 
 
         private static int awakening_Count = 1;
@@ -72,6 +71,7 @@ namespace _Elsword__Title_Timer
 
 
         public int FontSize { get; set; } = 55;
+
         public float fontScale { get; set; } = 80 / 100f;
         public float imgScale { get; set; } = 40 / 100f;
 
@@ -455,13 +455,13 @@ namespace _Elsword__Title_Timer
                         timer_NPWG.Change(0, 1000);
                     }
                 }
-                else if (keyCode == custom_Awakening && !Use_NPWG_FOD)
+                else if (keyCode == custom_Awakening)
                 {
                     if (ADD_User)
                     {
                         if (awakening_Count == 1)
                         {
-                            if (title_Desc == "FreedShadow")
+                            if (title_Desc == "FreedShadow" && !Use_FreedShadow_FOD)
                             {
                                 if (FreedShadow_Count <= 0)
                                 {
@@ -469,7 +469,7 @@ namespace _Elsword__Title_Timer
                                     timer_FreedShadow.Change(0, 1000);
                                 }
                             }
-                            else if (title_Desc == "The_Setting_Sun")
+                            else if (title_Desc == "The_Setting_Sun" && !Use_Dusk_FOD)
                             {
                                 if (The_Setting_Sun_Count <= 0)
                                 {
@@ -488,7 +488,7 @@ namespace _Elsword__Title_Timer
                     }
                     else
                     {
-                        if (title_Desc == "FreedShadow")
+                        if (title_Desc == "FreedShadow" && !Use_FreedShadow_FOD)
                         {
                             if (FreedShadow_Count <= 0)
                             {
@@ -496,7 +496,7 @@ namespace _Elsword__Title_Timer
                                 timer_FreedShadow.Change(0, 1000);
                             }
                         }
-                        else if (title_Desc == "The_Setting_Sun")
+                        else if (title_Desc == "The_Setting_Sun" && !Use_Dusk_FOD)
                         {
                             if (The_Setting_Sun_Count <= 0)
                             {
@@ -508,7 +508,7 @@ namespace _Elsword__Title_Timer
                 }
 
 
-                else if ((keyCode == custom_Onion || keyCode == custom_Superhuman_Apple) && title_Desc == "FreedShadow" && !Use_NPWG_FOD)
+                else if ((keyCode == custom_Onion || keyCode == custom_Superhuman_Apple) && title_Desc == "FreedShadow" && !Use_FreedShadow_FOD)
                 {
                     if (FreedShadow_Count <= 0)
                     {
@@ -516,7 +516,7 @@ namespace _Elsword__Title_Timer
                         timer_FreedShadow.Change(0, 1000);
                     }
                 }
-                else if ((keyCode == custom_Onion || keyCode == custom_Superhuman_Apple) && title_Desc == "The_Setting_Sun" && !Use_NPWG_FOD)
+                else if ((keyCode == custom_Onion || keyCode == custom_Superhuman_Apple) && title_Desc == "The_Setting_Sun" && !Use_Dusk_FOD)
                 {
                     if (The_Setting_Sun_Count <= 0)
                     {
@@ -524,9 +524,9 @@ namespace _Elsword__Title_Timer
                         timer_The_Setting_Sun.Change(0, 1000);
                     }
                 }
-                else if (keyCode == custom_FOD && Use_NPWG_FOD)
+                else if (keyCode == custom_FOD)
                 {
-                    if (title_Desc == "NPWG")
+                    if (title_Desc == "NPWG" && Use_NPWG_FOD)
                     {
                         if (NPWG_Count <= 0)
                         {
@@ -534,7 +534,7 @@ namespace _Elsword__Title_Timer
                             timer_NPWG.Change(0, 1000);
                         }
                     }
-                    else if (title_Desc == "FreedShadow")
+                    else if (title_Desc == "FreedShadow" && Use_FreedShadow_FOD)
                     {
                         if (FreedShadow_Count <= 0)
                         {
@@ -542,7 +542,7 @@ namespace _Elsword__Title_Timer
                             timer_FreedShadow.Change(0, 1000);
                         }
                     }
-                    else if (title_Desc == "The_Setting_Sun")
+                    else if (title_Desc == "The_Setting_Sun" && Use_Dusk_FOD)
                     {
                         if (The_Setting_Sun_Count <= 0)
                         {

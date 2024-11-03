@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("[Elsword] Title_Timer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b13b520aa0e4764d9317559b576dfe86ac037692")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7b32ea3ac97cc733b5dd26a6ebdffb88971f2816")]
 [assembly: System.Reflection.AssemblyProductAttribute("[Elsword] Title_Timer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("[Elsword] Title_Timer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
