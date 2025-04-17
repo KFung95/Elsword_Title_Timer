@@ -89,6 +89,8 @@
             </StackPanel>
         </Grid>
 
-        <local:PhotonTrackerSettingsView x:Name="PhotonTrackerSettings" DataContext="{Binding SettingsVM}" Grid.Row="1" Visibility="{Binding ShowSettings, Converter={local:BoolToVisibilityConverter}}" Margin="0,10,0,30" />
+        <Grid Grid.Row="1" Visibility="{Binding ShowSettings, Converter={local:BoolToVisibilityConverter}}" Margin="0,10,0,30">
+            <local:PhotonTrackerSettingsView x:Name="PhotonTrackerSettings" DataContext="{Binding SettingsVM}" />
+        </Grid>
     </Grid>
 </Window>
