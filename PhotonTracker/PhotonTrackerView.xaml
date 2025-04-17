@@ -14,8 +14,13 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
         <Grid Grid.Row="0" Margin="0,10,0,0">
-            <StackPanel HorizontalAlignment="Right" Margin="0,0,10,0">
+            <StackPanel HorizontalAlignment="Right" Margin="0,0,10,0" Grid.Column="1">
                 <CheckBox IsChecked="{Binding ShowSettings, Mode=TwoWay}" Foreground="{Binding TimerPanelTextColor}" >Show settings</CheckBox>
                 <ComboBox ItemsSource="{Binding ThemeList}" SelectedItem="{Binding Theme, Mode=TwoWay}" 
                           Visibility="{Binding ShowSettings, Converter={local:BoolToVisibilityConverter}}" 
@@ -23,6 +28,8 @@
                 <ComboBox ItemsSource="{Binding PresetList}" SelectedItem="{Binding Preset, Mode=TwoWay}" 
                     Visibility="{Binding ShowSettings, Converter={local:BoolToVisibilityConverter}}"
                           Margin="0,4,5,0" />
+                <Button Content="Save Preset" Margin="10,10,10,0" Padding="5,0,5,0" Height="25" Command="{Binding SavePresetCommand}"></Button>
+                <TextBlock VerticalAlignment="Center" Text="{Binding SaveSuccessfulMessage}" Foreground="{Binding TimerPanelTextColor}"></TextBlock>
             </StackPanel>
 
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,0,0,10">
@@ -79,117 +86,9 @@
                         </TextBlock>
                     </StackPanel>
                 </Border>
-                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                    <Button Content="Save Preset" Margin="10,10,10,0" Padding="5,0,5,0" Height="25" Command="{Binding SavePresetCommand}"></Button>
-                    <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" Text="{Binding SaveSuccessfulMessage}" Foreground="{Binding TimerPanelTextColor}"></TextBlock>
-                </StackPanel>
             </StackPanel>
         </Grid>
 
-        <Grid Grid.Row="1" HorizontalAlignment="Center" Visibility="{Binding ShowSettings, Converter={local:BoolToVisibilityConverter}}" Margin="0,10,0,30">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-
-            <Border Grid.Row="0" Grid.Column="0" BorderThickness="1,1,0,1" BorderBrush="{Binding TimerPanelTextColor}">
-                <TextBlock Text="Title Switch key" Padding="10,10,10,0" Foreground="{Binding TimerPanelTextColor}" />
-            </Border>
-            <Border Grid.Row="0" Grid.Column="1" Padding="10,0,10,0" BorderThickness="1,1,1,1" BorderBrush="{Binding TimerPanelTextColor}">
-                <Button Focusable="False" Height="20" Width="300" Command="{Binding BindTitleSwitchKeyCommand}" Content="{Binding IsCapturing_Switching_State}"></Button>
-            </Border>
-
-            <Border Grid.Row="1" Grid.Column="0" BorderThickness="1,0,0,1" BorderBrush="{Binding TimerPanelTextColor}">
-                <TextBlock Text="Night Parade arrow key" Padding="10,10,10,0" Foreground="{Binding TimerPanelTextColor}"/>
-            </Border>
-            <Border Grid.Row="1" Grid.Column="1" Padding="10,0,10,0" BorderThickness="1,0,1,1" BorderBrush="{Binding TimerPanelTextColor}">
-                <Button Focusable="False" Height="20" Width="300" Command="{Binding BindNightParadeArrowKeyCommand}" Content="{Binding IsCapturing_NPWG_State}"></Button>
-            </Border>
-
-            <Border Grid.Row="2" Grid.Column="0" BorderThickness="1,0,0,1" BorderBrush="{Binding TimerPanelTextColor}">
-                <TextBlock Text="Night Parade skill key" Padding="10,10,10,0" Foreground="{Binding TimerPanelTextColor}"/>
-            </Border>
-            <Border Grid.Row="2" Grid.Column="1" Padding="10,0,10,0" BorderThickness="1,0,1,1" BorderBrush="{Binding TimerPanelTextColor}">
-                <Button Focusable="False" Height="20" Width="300" Command="{Binding BindNightParadeSkillKeyCommand}" Content="{Binding IsCapturing_NPWG_Skill_State}"></Button>
-            </Border>
-
-            <Border Grid.Row="3" Grid.Column="0" BorderThickness="1,0,0,1" BorderBrush="{Binding TimerPanelTextColor}">
-                <TextBlock Text="Freed Shadow arrow key" Padding="10,10,10,0" Foreground="{Binding TimerPanelTextColor}"/>
-            </Border>
-            <Border Grid.Row="3" Grid.Column="1" Padding="10,0,10,0" BorderThickness="1,0,1,1" BorderBrush="{Binding TimerPanelTextColor}">
-                <Button Focusable="False" Height="20" Width="300" Command="{Binding BindFreedShadowArrowKeyCommand}" Content="{Binding IsCapturing_FreedShadow_State}"></Button>
-            </Border>
-
-            <Border Grid.Row="4" Grid.Column="0" BorderThickness="1,0,0,1" BorderBrush="{Binding TimerPanelTextColor}">
-                <TextBlock Text="The Setting Sun arrow key" Padding="10,10,10,0" Foreground="{Binding TimerPanelTextColor}"/>
-            </Border>
-            <Border Grid.Row="4" Grid.Column="1" Padding="10,0,10,0" BorderThickness="1,0,1,1" BorderBrush="{Binding TimerPanelTextColor}">
-                <Button Focusable="False" Height="20" Width="300" Command="{Binding BindSettingSunArrowKeyCommand}" Content="{Binding IsCapturing_The_Setting_Sun_State}"></Button>
-            </Border>
-
-            <Border Grid.Row="5" Grid.Column="0" BorderThickness="1,0,0,1" BorderBrush="{Binding TimerPanelTextColor}">
-                <TextBlock Text="Natural Flow arrow key" Padding="10,10,10,0" Foreground="{Binding TimerPanelTextColor}"/>
-            </Border>
-            <Border Grid.Row="5" Grid.Column="1" Padding="10,0,10,0" BorderThickness="1,0,1,1" BorderBrush="{Binding TimerPanelTextColor}">
-                <Button Focusable="False" Height="20" Width="300" Command="{Binding BindNaturalFlowArrowKeyCommand}" Content="{Binding IsCapturing_Natural_Flow_State}"></Button>
-            </Border>
-
-            <Border Grid.Row="6" Grid.Column="0" BorderThickness="1,0,0,1" BorderBrush="{Binding TimerPanelTextColor}">
-                <TextBlock Text="Awakening key" Padding="10,10,10,0" Foreground="{Binding TimerPanelTextColor}"/>
-            </Border>
-            <Border Grid.Row="6" Grid.Column="1" Padding="10,0,10,0" BorderThickness="1,0,1,1" BorderBrush="{Binding TimerPanelTextColor}">
-                <Button Focusable="False" Height="20" Width="300" Command="{Binding BindAwakeningKeyCommand}" Content="{Binding IsCapturing_Awakening_State}"></Button>
-            </Border>
-
-            <Border Grid.Row="7" Grid.Column="0" BorderThickness="1,0,0,1" BorderBrush="{Binding TimerPanelTextColor}">
-                <TextBlock Text="Onion key" Padding="10,10,10,0" Foreground="{Binding TimerPanelTextColor}"/>
-            </Border>
-            <Border Grid.Row="7" Grid.Column="1" Padding="10,0,10,0" BorderThickness="1,0,1,1" BorderBrush="{Binding TimerPanelTextColor}">
-                <Button Focusable="False" Height="20" Width="300" Command="{Binding BindOnionKeyCommand}" Content="{Binding IsCapturing_Onion_State}"></Button>
-            </Border>
-
-            <Border Grid.Row="8" Grid.Column="0" BorderThickness="1,0,0,1" BorderBrush="{Binding TimerPanelTextColor}">
-                <TextBlock Text="Superhuman Apple key" Padding="10,10,10,0" Foreground="{Binding TimerPanelTextColor}"/>
-            </Border>
-            <Border Grid.Row="8" Grid.Column="1" Padding="10,0,10,0" BorderThickness="1,0,1,1" BorderBrush="{Binding TimerPanelTextColor}">
-                <Button Focusable="False" Height="20" Width="300" Command="{Binding BindSuperhumanAppleKeyCommand}" Content="{Binding IsCapturing_Superhuman_Apple_State}"></Button>
-            </Border>
-
-            <Border Grid.Row="9" Grid.Column="0" BorderThickness="1,0,0,1" BorderBrush="{Binding TimerPanelTextColor}">
-                <TextBlock Text="Passive Cooldown" Padding="10,10,10,0" Foreground="{Binding TimerPanelTextColor}"/>
-            </Border>
-            <Border Grid.Row="9" Grid.Column="1" Padding="10,0,10,0" BorderThickness="1,0,1,1" BorderBrush="{Binding TimerPanelTextColor}">
-                <TextBox Height="20" Padding="10,1,10,0" AcceptsReturn="False" Text="{Binding PassiveTimerValue}"/>
-            </Border>
-
-            <Border Grid.Row="10" Grid.Column="0" BorderThickness="1,0,0,1" BorderBrush="{Binding TimerPanelTextColor}">
-                <TextBlock Text="Passive key" Padding="10,10,10,0" Foreground="{Binding TimerPanelTextColor}"/>
-            </Border>
-            <Border Grid.Row="10" Grid.Column="1" Padding="10,0,10,0" BorderThickness="1,0,1,1" BorderBrush="{Binding TimerPanelTextColor}">
-                <Button Focusable="False" Height="20" Width="300" Command="{Binding BindPassiveKeyCommand}" Content="{Binding IsCapturing_Passive_State}"></Button>
-            </Border>
-
-            <Border Grid.Row="11" Grid.Column="0" BorderThickness="1,0,0,1" BorderBrush="{Binding TimerPanelTextColor}">
-                <TextBlock Text="Reset key" Padding="10,10,10,0" Foreground="{Binding TimerPanelTextColor}"/>
-            </Border>
-            <Border Grid.Row="11" Grid.Column="1" Padding="10,0,10,0" BorderThickness="1,0,1,1" BorderBrush="{Binding TimerPanelTextColor}">
-                <Button Focusable="False" Height="20" Width="300" Command="{Binding BindResetKeyCommand}" Content="{Binding IsCapturing_Reset_State}"></Button>
-            </Border>
-
-        </Grid>
+        <local:PhotonTrackerSettingsView x:Name="PhotonTrackerSettings" DataContext="{Binding SettingsVM}" Grid.Row="1" Visibility="{Binding ShowSettings, Converter={local:BoolToVisibilityConverter}}" Margin="0,10,0,30" />
     </Grid>
 </Window>
