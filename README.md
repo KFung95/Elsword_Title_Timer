@@ -30,8 +30,11 @@
 
 # FAQ
 > Sometimes there are situations that trigger the timers to start ticking but I haven't used my titles or items. Can the program be made more accurate?
+
 The way the program works is that it tracks when you hit the title switch key, the current timer to see if it's already ticking, and the button required to trigger the timer (i.e: Awakening, Night Parade skill, Passive, etc.). The program is generally accurate but there are times where you press the keys but it doesn't register in game. This causes the timer to start ticking. There's unfortunately no way to make it 100% accurate as that would require the program to hook into the game which would trigger anti-cheat. We added a reset button so you can reset your timers and this is currently the only workaround.
+
 > Will I be banned for using this?
+
 To my knowledge, no as the program doesn't interact with the game whatsoever. Just like keyboard and mouse profile programs, this is meant to run in the background. However, use at your own risk.
 
 # Contributing
