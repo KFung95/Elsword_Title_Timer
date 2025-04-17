@@ -1,0 +1,11 @@
+
+*.user
+*.vs/
+*/**/obj/Debug
+*/**/obj/Release
+*/**/bin/Debug
+*/**/bin/Release
+/PhotonTracker/Properties
+/PhotonTracker/obj
+/bin/Debug/net8.0-windows/
+obj
