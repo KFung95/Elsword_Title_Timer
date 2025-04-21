@@ -8,15 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/awakening.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/awakening_grayscale.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/freedshadow.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/freedshadow_grayscale.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/npwg.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/npwg_grayscale.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/pticon.ico")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/the_setting_sun.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/the_setting_sun_grayscale.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/net8.0-windows/images/pticon.ico")]
 
 

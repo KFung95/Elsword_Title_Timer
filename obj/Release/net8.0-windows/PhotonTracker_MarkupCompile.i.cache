@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Kevin Fung\Desktop\PhotonTracker\obj\Release\net8.0-windows\
+D:\Users\Kevin Fung\Documents\GitHub\Elsword_Title_Timer\obj\Release\net8.0-windows\
 PhotonTracker
 none
 false
 TRACE;RELEASE;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
-C:\Users\Kevin Fung\Desktop\PhotonTracker\App.xaml
-1974477415
-101568761310
-8-958105086
+
+3-1344509966
+1-70071609
+12418785118
 207-1476244305
-PhotonTrackerView.xaml;
+PhotonTracker\App.xaml;PhotonTracker\PhotonTrackerSettingsView.xaml;PhotonTracker\PhotonTrackerView.xaml;
 
 False
 

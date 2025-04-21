@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PhotonTracker")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6a2bfdf53b640273c9a4b8a7099e5abe9b29fb20")]
 [assembly: System.Reflection.AssemblyProductAttribute("PhotonTracker")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PhotonTracker")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
