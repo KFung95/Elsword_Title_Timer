@@ -559,7 +559,7 @@ namespace PhotonTracker
                 {
                     if (NPWG_Count <= 0)
                     {
-                        NPWG_Count = 25;
+                        NPWG_Count = 26;
                         timer_NPWG.Change(0, 1000);
                     }
                 }
@@ -567,7 +567,7 @@ namespace PhotonTracker
                 {
                     if (FreedShadow_Count <= 0)
                     {
-                        FreedShadow_Count = 60;
+                        FreedShadow_Count = 61;
                         timer_FreedShadow.Change(0, 1000);
                     }
                 }
@@ -593,7 +593,7 @@ namespace PhotonTracker
                 {
                     if (Passive_Count <= 0)
                     {
-                        Passive_Count = PhotonTrackerSettingsViewModel._passiveTimerValue;
+                        Passive_Count = PhotonTrackerSettingsViewModel._passiveTimerValue + 1;
                         timer_Passive.Change(0, 1000);
                     }
                 }

@@ -60,7 +60,7 @@ namespace PhotonTracker {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/PhotonTracker;component/photontracker/app.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/PhotonTracker;V1.0.0.0;component/photontracker/app.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\PhotonTracker\App.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
