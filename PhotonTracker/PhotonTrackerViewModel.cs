@@ -230,7 +230,7 @@ namespace PhotonTracker
                         PhotonTrackerSettingsViewModel.custom_Superhuman_Apple = int.Parse(reader.ReadLine());
                         PhotonTrackerSettingsViewModel.IsCapturing_Superhuman_Apple_State = $"Current keycode: {(Keys)PhotonTrackerSettingsViewModel.custom_Superhuman_Apple}";
                         PhotonTrackerSettingsViewModel.custom_Passive = int.Parse(reader.ReadLine());
-                        PhotonTrackerSettingsViewModel._passiveTimerValue = PhotonTrackerSettingsViewModel.custom_Passive;
+                        PhotonTrackerSettingsViewModel.PassiveTimerValue = PhotonTrackerSettingsViewModel.custom_Passive;
                         PhotonTrackerSettingsViewModel.custom_Passive_Key = int.Parse(reader.ReadLine());
                         PhotonTrackerSettingsViewModel.IsCapturing_Passive_State = $"Current keycode: {(Keys)PhotonTrackerSettingsViewModel.custom_Passive_Key}";
                         PhotonTrackerSettingsViewModel.custom_Reset = int.Parse(reader.ReadLine());
