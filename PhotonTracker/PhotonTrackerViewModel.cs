@@ -519,7 +519,7 @@ namespace PhotonTracker
             }
 
 
-            if (code >= 0 && (int)wParam == 256)
+           if (code >= 0 && ((int)wParam == 256 || keyCode == 164))
             {
                 if (keyCode == PhotonTrackerSettingsViewModel.custom_ChangeTitle)
                 {
