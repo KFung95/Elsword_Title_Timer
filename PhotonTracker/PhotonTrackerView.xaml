@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhotonTracker" WindowStyle="SingleBorderWindow"
         mc:Ignorable="d" Height="{Binding WindowHeight, Mode=TwoWay}" Width="{Binding WindowWidth, Mode=TwoWay}"
-        Title="Photon Tracker" Topmost="True">
+        Title="Photon Tracker" Topmost="True" MouseDown="Window_MouseDown">
     <Window.DataContext>
         <local:PhotonTrackerViewModel/>
     </Window.DataContext>
-    <Grid Background="{Binding AppBackgroundColor}">
+    <Grid Name="photonTrackerGrid" Background="{Binding AppBackgroundColor}" Focusable="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
