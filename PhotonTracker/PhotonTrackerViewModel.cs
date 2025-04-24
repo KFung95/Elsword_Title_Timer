@@ -37,6 +37,7 @@ namespace PhotonTracker
                 .ToList();
 
             SelectedPreset = PresetList.FirstOrDefault()?.Content?.ToString() ?? "DefaultPreset";
+            Preset = PresetList?.FirstOrDefault(x => x.Content == SelectedPreset);
 
             var filePath = Path.Combine(presetDirectory, presetFileName + ".txt");
             if (!Directory.Exists(presetDirectory))
