@@ -132,6 +132,8 @@
                               Margin="0,4,5,0" Visibility="{Binding ShowSettings, Converter={local:BoolToVisibilityConverter}}">Show FS</CheckBox>
                     <CheckBox IsChecked="{Binding ShowPassiveCDPanel, Mode=TwoWay}" Foreground="{Binding TextColor}"
                               Margin="0,4,5,0" Visibility="{Binding ShowSettings, Converter={local:BoolToVisibilityConverter}}">Show Passive CD</CheckBox>
+                    <CheckBox IsChecked="{Binding ShowTransCDPanel, Mode=TwoWay}" Foreground="{Binding TextColor}"
+                              Margin="0,4,5,0" Visibility="{Binding ShowSettings, Converter={local:BoolToVisibilityConverter}}">Show Trans CD</CheckBox>
                 </WrapPanel>
             </Border>
         </Grid>
