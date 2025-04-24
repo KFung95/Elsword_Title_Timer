@@ -412,6 +412,19 @@ namespace PhotonTracker
                 }
             }
         }
+        public static int Transcendence_Count
+        {
+            get => _transcendence_Count;
+            set
+            {
+                if (_transcendence_Count != value)
+                {
+                    _transcendence_Count = value;
+                    NotifyStaticPropertyChanged(nameof(Transcendence_Count));
+                }
+            }
+        }
+
 
         #endregion
 
@@ -573,17 +586,17 @@ namespace PhotonTracker
                         timer_NPWG.Change(0, 1000);
                     }
                 }
-                else if ((keyCode == PhotonTrackerSettingsViewModel.custom_Awakening || keyCode == PhotonTrackerSettingsViewModel.custom_Onion || keyCode == PhotonTrackerSettingsViewModel.custom_Superhuman_Apple) && title_Desc == "FreedShadow")
+                else if (keyCode == PhotonTrackerSettingsViewModel.custom_Awakening || keyCode == PhotonTrackerSettingsViewModel.custom_Onion || keyCode == PhotonTrackerSettingsViewModel.custom_Superhuman_Apple)
                 {
-                    if (FreedShadow_Count <= 0)
+                    Transcendence_Count = 20;
+                    timer_Transcendence.Change(0, 1000);
+
+                    if (title_Desc == "FreedShadow" && FreedShadow_Count <= 0)
                     {
                         FreedShadow_Count = 61;
                         timer_FreedShadow.Change(0, 1000);
                     }
-                }
-                else if ((keyCode == PhotonTrackerSettingsViewModel.custom_Awakening || keyCode == PhotonTrackerSettingsViewModel.custom_Onion || keyCode == PhotonTrackerSettingsViewModel.custom_Superhuman_Apple) && title_Desc == "The_Setting_Sun")
-                {
-                    if (The_Setting_Sun_Count <= 0)
+                    else if (title_Desc == "The_Setting_Sun" && The_Setting_Sun_Count <= 0)
                     {
                         The_Setting_Sun_Count = 30;
                         timer_The_Setting_Sun.Change(0, 1000);
@@ -660,6 +673,20 @@ namespace PhotonTracker
 
         }
 
+        private static void TimerCallback_Transcendence(object state)
+        {
+
+            if (Transcendence_Count > 0)
+            {
+                Transcendence_Count--;
+            }
+            else if (Transcendence_Count == 0)
+            {
+                Transcendence_Count = 20;
+
+            }
+        }
+
         #endregion
 
         #region Private variables
@@ -685,12 +712,14 @@ namespace PhotonTracker
         private static int _freedShadow_Count = 0;
         private static int _theSettingSun_Count = 0;
         private static int _passive_Count = 0;
+        private static int _transcendence_Count = 0;
         private bool _showSettings;
         private static System.Threading.Timer timer_ChangeTitle = new System.Threading.Timer(TimerCallback_ChangeTitle, null, Timeout.Infinite, Timeout.Infinite);
         private static System.Threading.Timer timer_NPWG = new System.Threading.Timer(TimerCallback_NPWG, null, Timeout.Infinite, Timeout.Infinite);
         private static System.Threading.Timer timer_FreedShadow = new System.Threading.Timer(TimerCallback_FreedShadow, null, Timeout.Infinite, Timeout.Infinite);
         private static System.Threading.Timer timer_The_Setting_Sun = new System.Threading.Timer(TimerCallback_The_Setting_Sun, null, Timeout.Infinite, Timeout.Infinite);
         private static System.Threading.Timer timer_Passive = new System.Threading.Timer(TimerCallback_Passive, null, Timeout.Infinite, Timeout.Infinite);
+        private static System.Threading.Timer timer_Transcendence = new System.Threading.Timer(TimerCallback_Transcendence, null, Timeout.Infinite, Timeout.Infinite);
         #endregion
     }
 }

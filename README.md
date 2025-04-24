@@ -1,4 +1,5 @@
 # Photon Tracker
+![](https://github.com/KFung95/Photon-Tracker/blob/6621e82df2c0ad23737a321416234d47b113b7c1/.github/DOCUMENTS/PhotonTracker_VZnHqh8Zie.png)
 
 # Table of contents
 - [Prerequisites](#prerequisites)
@@ -38,4 +39,6 @@ The way the program works is that it tracks when you hit the title switch key, t
 To my knowledge, no as the program doesn't interact with the game whatsoever. Just like keyboard and mouse profile programs, this is meant to run in the background. However, use at your own risk.
 
 # Contributing
+This was built off of Hi-Yong-KR's Elsword Title Timer so a big thank you to them.
+
 If you have any issue or any idea that could make the project better, feel free to open an [issue](https://github.com/KFung95/Photon-Tracker/issues).
