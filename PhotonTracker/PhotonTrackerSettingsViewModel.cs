@@ -516,10 +516,24 @@ namespace PhotonTracker
             }
         }
 
+        public bool ShowTransCDPanel
+        {
+            get => _showTransCDPanel;
+            set
+            {
+                if (_showTransCDPanel != value)
+                {
+                    _showTransCDPanel = value;
+                    NotifyPropertyChanged(nameof(ShowTransCDPanel));
+                }
+            }
+        }
+
         private bool _showTSSPanel = true;
         private bool _showNightParadePanel = true;
         private bool _showFreedShadowPanel = true;
         private bool _showPassiveCDPanel = true;
+        private bool _showTransCDPanel = true;
 
         #endregion
     }

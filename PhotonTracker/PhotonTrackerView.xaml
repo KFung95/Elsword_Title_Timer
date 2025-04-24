@@ -73,7 +73,7 @@
                         </TextBlock>
                     </StackPanel>
                 </Border>
-                <Border Background="{Binding TimerPanelColor}" Grid.Row="0" Grid.Column="0" BorderThickness="1,1,1,1" BorderBrush="Black"
+                <Border Background="{Binding TimerPanelColor}" Grid.Row="0" Grid.Column="0" BorderThickness="1,1,0.5,1" BorderBrush="Black"
                         Visibility="{Binding SettingsVM.ShowPassiveCDPanel, Converter={local:BoolToVisibilityConverter}}">
                     <StackPanel Orientation="Vertical">
                         <TextBlock Foreground="{Binding TimerPanelTextColor}">
@@ -85,6 +85,23 @@
                             <TextBlock.Text>
                                 <MultiBinding StringFormat=" {0} ">
                                     <Binding Path="Passive_Count"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+                <Border Background="{Binding TimerPanelColor}" Grid.Row="0" Grid.Column="0" BorderThickness="1,1,0.5,1" BorderBrush="Black"
+        Visibility="{Binding SettingsVM.ShowTransCDPanel, Converter={local:BoolToVisibilityConverter}}">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Foreground="{Binding TimerPanelTextColor}">
+                            <TextBlock.Text>
+                                Transcendence
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <TextBlock Padding="10,10,10,10" FontSize="32" Foreground="{Binding TimerPanelTextColor}">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat=" {0} ">
+                                    <Binding Path="Transcendence_Count"/>
                                 </MultiBinding>
                             </TextBlock.Text>
                         </TextBlock>
