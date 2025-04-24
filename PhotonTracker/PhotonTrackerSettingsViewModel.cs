@@ -12,7 +12,7 @@ using Brush = System.Windows.Media.Brush;
 
 namespace PhotonTracker
 {
-    public class PhotonTrackerSettingsViewModel
+    public class PhotonTrackerSettingsViewModel : NotifyViewModel
     {
 
         public PhotonTrackerSettingsViewModel()
@@ -20,6 +20,8 @@ namespace PhotonTracker
             IsCapturing_Switching_State = $"Current keycode: {(Keys)custom_ChangeTitle}";
             IsCapturing_NPWG_State = $"Current keycode: {(Keys)custom_NPWG}";
             IsCapturing_NPWG_Skill_State = $"Current keycode: {(Keys)custom_NPWG_Skill}";
+            IsCapturing_NPWG_2_State = $"Current keycode: {(Keys)custom_NPWG_2}";
+            IsCapturing_NPWG_Skill_2_State = $"Current keycode: {(Keys)custom_NPWG_Skill_2}";
             IsCapturing_FreedShadow_State = $"Current keycode: {(Keys)custom_FreedShadow}";
             IsCapturing_The_Setting_Sun_State = $"Current keycode: {(Keys)custom_The_Setting_Sun}";
             IsCapturing_Natural_Flow_State = $"Current keycode: {(Keys)custom_Natural_Flow}";
@@ -82,10 +84,25 @@ namespace PhotonTracker
             }
         }
 
+        private ICommand _bindNightParadeSkill2KeyCommand;
+        public ICommand BindNightParadeSkill2KeyCommand
+        {
+            get
+            {
+                return _bindNightParadeSkill2KeyCommand ?? (_bindNightParadeSkill2KeyCommand = new CommandHandler(() => BindNightParadeSkill2Key(), () => { return true; }));
+            }
+        }
+
         public void BindNightParadeSkillKey()
         {
             IsCapturing_NPWG_Skill_State = "Press the [Night Parade of the White-Ghost] skill key";
             IsCapturing_NPWG_Skill = true;
+        }
+
+        public void BindNightParadeSkill2Key()
+        {
+            IsCapturing_NPWG_Skill_2_State = "Press the [Night Parade of the White-Ghost] second skill key";
+            IsCapturing_NPWG_Skill_2 = true;
         }
 
         private ICommand _bindFreedShadowArrowKeyCommand;
@@ -227,7 +244,9 @@ namespace PhotonTracker
 
         public static int custom_ChangeTitle;
         public static int custom_NPWG;
+        public static int custom_NPWG_2;
         public static int custom_NPWG_Skill;
+        public static int custom_NPWG_Skill_2;
         public static int custom_FreedShadow;
         public static int custom_The_Setting_Sun;
         public static int custom_Natural_Flow;
@@ -268,6 +287,21 @@ namespace PhotonTracker
             }
         }
 
+        public static bool IsCapturing_NPWG_2 = false;
+        private static string _isCapturing_NPWG_2_State;
+        public static string IsCapturing_NPWG_2_State
+        {
+            get => _isCapturing_NPWG_2_State;
+            set
+            {
+                if (_isCapturing_NPWG_2_State != value)
+                {
+                    _isCapturing_NPWG_2_State = value;
+                    NotifyStaticPropertyChanged(nameof(IsCapturing_NPWG_2_State));
+                }
+            }
+        }
+
         public static bool IsCapturing_NPWG_Skill = false;
         private static string _isCapturing_NPWG_Skill_State;
         public static string IsCapturing_NPWG_Skill_State
@@ -279,6 +313,21 @@ namespace PhotonTracker
                 {
                     _isCapturing_NPWG_Skill_State = value;
                     NotifyStaticPropertyChanged(nameof(IsCapturing_NPWG_Skill_State));
+                }
+            }
+        }
+
+        public static bool IsCapturing_NPWG_Skill_2 = false;
+        private static string _isCapturing_NPWG_Skill_2_State;
+        public static string IsCapturing_NPWG_Skill_2_State
+        {
+            get => _isCapturing_NPWG_Skill_2_State;
+            set
+            {
+                if (_isCapturing_NPWG_Skill_2_State != value)
+                {
+                    _isCapturing_NPWG_Skill_2_State = value;
+                    NotifyStaticPropertyChanged(nameof(IsCapturing_NPWG_Skill_2_State));
                 }
             }
         }
@@ -414,6 +463,63 @@ namespace PhotonTracker
                 }
             }
         }
+
+        public bool ShowTSSPanel
+        {
+            get => _showTSSPanel;
+            set
+            {
+                if (_showTSSPanel != value)
+                {
+                    _showTSSPanel = value;
+                    NotifyPropertyChanged(nameof(ShowTSSPanel));
+                }
+            }
+        }
+
+        public bool ShowNightParadePanel
+        {
+            get => _showNightParadePanel;
+            set
+            {
+                if (_showNightParadePanel != value)
+                {
+                    _showNightParadePanel = value;
+                    NotifyPropertyChanged(nameof(ShowNightParadePanel));
+                }
+            }
+        }
+
+        public bool ShowFreedShadowPanel
+        {
+            get => _showFreedShadowPanel;
+            set
+            {
+                if (_showFreedShadowPanel != value)
+                {
+                    _showFreedShadowPanel = value;
+                    NotifyPropertyChanged(nameof(ShowFreedShadowPanel));
+                }
+            }
+        }
+
+        public bool ShowPassiveCDPanel
+        {
+            get => _showPassiveCDPanel;
+            set
+            {
+                if (_showPassiveCDPanel != value)
+                {
+                    _showPassiveCDPanel = value;
+                    NotifyPropertyChanged(nameof(ShowPassiveCDPanel));
+                }
+            }
+        }
+
+        private bool _showTSSPanel = true;
+        private bool _showNightParadePanel = true;
+        private bool _showFreedShadowPanel = true;
+        private bool _showPassiveCDPanel = true;
 
         #endregion
     }

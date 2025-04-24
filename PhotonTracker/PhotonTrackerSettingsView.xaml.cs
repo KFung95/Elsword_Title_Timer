@@ -24,5 +24,14 @@ namespace PhotonTracker
         {
             InitializeComponent();
         }
+
+        //prevent space or enter from continuously reprompting the user to bind a key
+        private void UserControl_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter || e.Key == Key.Space)
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

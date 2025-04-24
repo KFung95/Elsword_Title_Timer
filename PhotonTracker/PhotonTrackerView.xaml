@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhotonTracker" WindowStyle="SingleBorderWindow"
         mc:Ignorable="d" Height="{Binding WindowHeight, Mode=TwoWay}" Width="{Binding WindowWidth, Mode=TwoWay}"
-        Title="Photon Tracker" Topmost="True">
+        Title="Photon Tracker" Topmost="True" MouseDown="Window_MouseDown">
     <Window.DataContext>
         <local:PhotonTrackerViewModel/>
     </Window.DataContext>
-    <Grid Background="{Binding AppBackgroundColor}">
+    <Grid Name="photonTrackerGrid" Background="{Binding AppBackgroundColor}" Focusable="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
@@ -33,7 +33,8 @@
             </StackPanel>
 
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,0,0,10">
-                <Border Background="{Binding TimerPanelColor}" Grid.Row="0" Grid.Column="0" BorderThickness="1,1,0,1" BorderBrush="Black">
+                <Border Background="{Binding TimerPanelColor}" Grid.Row="0" Grid.Column="0" BorderThickness="1,1,0.5,1" BorderBrush="Black"
+                        Visibility="{Binding SettingsVM.ShowTSSPanel, Converter={local:BoolToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
                         <Image MaxWidth="100" MaxHeight="100" Source="{Binding TheSettingSunImageSource}"></Image>
                         <TextBlock Padding="10,10,10,10" FontSize="32" Foreground="{Binding TimerPanelTextColor}">
@@ -45,7 +46,8 @@
                         </TextBlock>
                     </StackPanel>
                 </Border>
-                <Border Background="{Binding TimerPanelColor}" Grid.Row="0" Grid.Column="0" BorderThickness="1,1,0,1" BorderBrush="Black">
+                <Border Background="{Binding TimerPanelColor}" Grid.Row="0" Grid.Column="0" BorderThickness="1,1,0.5,1" BorderBrush="Black"
+                        Visibility="{Binding SettingsVM.ShowNightParadePanel, Converter={local:BoolToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
                         <Image MaxWidth="100" MaxHeight="100" Source="{Binding NightParadeImageSource}"></Image>
                         <TextBlock Padding="10,10,10,10" FontSize="32" Foreground="{Binding TimerPanelTextColor}">
@@ -58,7 +60,8 @@
                         </TextBlock>
                     </StackPanel>
                 </Border>
-                <Border Background="{Binding TimerPanelColor}" Grid.Row="0" Grid.Column="0" BorderThickness="1,1,0,1" BorderBrush="Black">
+                <Border Background="{Binding TimerPanelColor}" Grid.Row="0" Grid.Column="0" BorderThickness="1,1,0.5,1" BorderBrush="Black"
+                        Visibility="{Binding SettingsVM.ShowFreedShadowPanel, Converter={local:BoolToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
                         <Image MaxWidth="100" MaxHeight="100" Source="{Binding FreedShadowImageSource}"></Image>
                         <TextBlock Padding="10,10,10,10" FontSize="32" Foreground="{Binding TimerPanelTextColor}">
@@ -70,7 +73,8 @@
                         </TextBlock>
                     </StackPanel>
                 </Border>
-                <Border Background="{Binding TimerPanelColor}" Grid.Row="0" Grid.Column="0" BorderThickness="1,1,1,1" BorderBrush="Black">
+                <Border Background="{Binding TimerPanelColor}" Grid.Row="0" Grid.Column="0" BorderThickness="1,1,1,1" BorderBrush="Black"
+                        Visibility="{Binding SettingsVM.ShowPassiveCDPanel, Converter={local:BoolToVisibilityConverter}}">
                     <StackPanel Orientation="Vertical">
                         <TextBlock Foreground="{Binding TimerPanelTextColor}">
                             <TextBlock.Text>
