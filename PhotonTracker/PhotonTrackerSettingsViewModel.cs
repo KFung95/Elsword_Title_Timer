@@ -12,7 +12,7 @@ using Brush = System.Windows.Media.Brush;
 
 namespace PhotonTracker
 {
-    public class PhotonTrackerSettingsViewModel
+    public class PhotonTrackerSettingsViewModel : NotifyViewModel
     {
 
         public PhotonTrackerSettingsViewModel()
@@ -463,6 +463,63 @@ namespace PhotonTracker
                 }
             }
         }
+
+        public bool ShowTSSPanel
+        {
+            get => _showTSSPanel;
+            set
+            {
+                if (_showTSSPanel != value)
+                {
+                    _showTSSPanel = value;
+                    NotifyPropertyChanged(nameof(ShowTSSPanel));
+                }
+            }
+        }
+
+        public bool ShowNightParadePanel
+        {
+            get => _showNightParadePanel;
+            set
+            {
+                if (_showNightParadePanel != value)
+                {
+                    _showNightParadePanel = value;
+                    NotifyPropertyChanged(nameof(ShowNightParadePanel));
+                }
+            }
+        }
+
+        public bool ShowFreedShadowPanel
+        {
+            get => _showFreedShadowPanel;
+            set
+            {
+                if (_showFreedShadowPanel != value)
+                {
+                    _showFreedShadowPanel = value;
+                    NotifyPropertyChanged(nameof(ShowFreedShadowPanel));
+                }
+            }
+        }
+
+        public bool ShowPassiveCDPanel
+        {
+            get => _showPassiveCDPanel;
+            set
+            {
+                if (_showPassiveCDPanel != value)
+                {
+                    _showPassiveCDPanel = value;
+                    NotifyPropertyChanged(nameof(ShowPassiveCDPanel));
+                }
+            }
+        }
+
+        private bool _showTSSPanel = true;
+        private bool _showNightParadePanel = true;
+        private bool _showFreedShadowPanel = true;
+        private bool _showPassiveCDPanel = true;
 
         #endregion
     }
