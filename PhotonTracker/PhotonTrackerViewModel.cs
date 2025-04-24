@@ -183,6 +183,7 @@ namespace PhotonTracker
                 writer.WriteLine(PhotonTrackerSettingsViewModel.custom_ChangeTitle);
                 writer.WriteLine(PhotonTrackerSettingsViewModel.custom_NPWG);
                 writer.WriteLine(PhotonTrackerSettingsViewModel.custom_NPWG_Skill);
+                writer.WriteLine(PhotonTrackerSettingsViewModel.custom_NPWG_Skill_2);
                 writer.WriteLine(PhotonTrackerSettingsViewModel.custom_FreedShadow);
                 writer.WriteLine(PhotonTrackerSettingsViewModel.custom_The_Setting_Sun);
                 writer.WriteLine(PhotonTrackerSettingsViewModel.custom_Natural_Flow);
@@ -218,6 +219,8 @@ namespace PhotonTracker
                         PhotonTrackerSettingsViewModel.IsCapturing_NPWG_State = $"Current keycode: {(Keys)PhotonTrackerSettingsViewModel.custom_NPWG}";
                         PhotonTrackerSettingsViewModel.custom_NPWG_Skill = int.Parse(reader.ReadLine());
                         PhotonTrackerSettingsViewModel.IsCapturing_NPWG_Skill_State = $"Current keycode: {(Keys)PhotonTrackerSettingsViewModel.custom_NPWG_Skill}";
+                        PhotonTrackerSettingsViewModel.custom_NPWG_Skill_2 = int.Parse(reader.ReadLine());
+                        PhotonTrackerSettingsViewModel.IsCapturing_NPWG_Skill_2_State = $"Current keycode: {(Keys)PhotonTrackerSettingsViewModel.custom_NPWG_Skill_2}";
                         PhotonTrackerSettingsViewModel.custom_FreedShadow = int.Parse(reader.ReadLine());
                         PhotonTrackerSettingsViewModel.IsCapturing_FreedShadow_State = $"Current keycode: {(Keys)PhotonTrackerSettingsViewModel.custom_FreedShadow}";
                         PhotonTrackerSettingsViewModel.custom_The_Setting_Sun = int.Parse(reader.ReadLine());
@@ -470,6 +473,12 @@ namespace PhotonTracker
                 PhotonTrackerSettingsViewModel.IsCapturing_NPWG_Skill = false;
                 PhotonTrackerSettingsViewModel.IsCapturing_NPWG_Skill_State = $"Current keycode: {(Keys)PhotonTrackerSettingsViewModel.custom_NPWG_Skill}";
             }
+            else if (PhotonTrackerSettingsViewModel.IsCapturing_NPWG_Skill_2 && code >= 0)
+            {
+                PhotonTrackerSettingsViewModel.custom_NPWG_Skill_2 = keyCode;
+                PhotonTrackerSettingsViewModel.IsCapturing_NPWG_Skill_2 = false;
+                PhotonTrackerSettingsViewModel.IsCapturing_NPWG_Skill_2_State = $"Current keycode: {(Keys)PhotonTrackerSettingsViewModel.custom_NPWG_Skill_2}";
+            }
             else if (PhotonTrackerSettingsViewModel.IsCapturing_FreedShadow && code >= 0)
             {
                 PhotonTrackerSettingsViewModel.custom_FreedShadow = keyCode; 
@@ -556,7 +565,7 @@ namespace PhotonTracker
                     timer_ChangeTitle.Change(Timeout.Infinite, Timeout.Infinite);
 
                 }
-                else if (keyCode == PhotonTrackerSettingsViewModel.custom_NPWG_Skill && title_Desc == "NPWG")
+                else if ((keyCode == PhotonTrackerSettingsViewModel.custom_NPWG_Skill || keyCode == PhotonTrackerSettingsViewModel.custom_NPWG_Skill_2) && title_Desc == "NPWG")
                 {
                     if (NPWG_Count <= 0)
                     {
